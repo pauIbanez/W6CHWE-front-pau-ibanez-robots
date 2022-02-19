@@ -63,6 +63,11 @@ const RobotStyle = styled.li`
   border-top: 1px solid gray;
 `;
 
+const Footer = styled.footer`
+  height: 300px;
+  background-color: gray;
+`;
+
 const MainPage = () => {
   return (
     <>
@@ -93,6 +98,9 @@ const MainPage = () => {
           </SectionList>
         </PopularRobots>
       </MainSection>
+      <Footer>
+        <h2>Footer here</h2>
+      </Footer>
     </>
   );
 };
