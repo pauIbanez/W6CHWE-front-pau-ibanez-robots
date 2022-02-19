@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import Navigation from "../components/Navigation/Navigation";
 import ListRobot from "../components/Robot/ListRobot";
 import apiContext from "../contexts/apiContext";
 import { loadRobotsAction } from "../redux/actions/actionCreators";
@@ -12,15 +13,6 @@ const Video = styled.video`
   top: 0;
   left: 0;
   z-index: -1;
-`;
-
-const NavMenu = styled.nav`
-  width: 100%;
-  height: 100px;
-  position: fixed;
-  top: 0;
-  background-color: #0e0e0e;
-  z-index: 2;
 `;
 
 const HeaderInfo = styled.div`
@@ -95,7 +87,7 @@ const MainPage = () => {
   return (
     <>
       <header>
-        <NavMenu></NavMenu>
+        <Navigation current={1} />
         <Video autoPlay muted loop>
           <source src="https://imgur.com/rV8zNP8.mp4" type="video/mp4" />
         </Video>
