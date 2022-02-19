@@ -1,4 +1,9 @@
+import { useContext, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import apiContext from "../contexts/apiContext";
+import { loadRobotsAction } from "../redux/actions/actionCreators";
 
 const Video = styled.video`
   width: 100%;
@@ -69,6 +74,24 @@ const Footer = styled.footer`
 `;
 
 const MainPage = () => {
+  const dispatch = useDispatch();
+  const { robotAPI, endpoints } = useContext(apiContext);
+  const { robots } = useSelector((state) => state);
+
+  useEffect(() => {
+    if (robotAPI.ready) {
+      robotAPI.getBody(endpoints.robots, (result) => {
+        if (result.ok) {
+          dispatch(loadRobotsAction(result.body.robots));
+        }
+      });
+    }
+  }, [dispatch, endpoints, robotAPI]);
+
+  const robotsToRender = robots.map((robot) => (
+    <RobotStyle key={robot.id}></RobotStyle>
+  ));
+
   return (
     <>
       <header>
@@ -90,12 +113,7 @@ const MainPage = () => {
               fiction, all impressive pices of technology
             </p>
           </SectionTitle>
-          <SectionList>
-            <RobotStyle></RobotStyle>
-            <RobotStyle></RobotStyle>
-            <RobotStyle></RobotStyle>
-            <RobotStyle></RobotStyle>
-          </SectionList>
+          <SectionList>{robotsToRender}</SectionList>
         </PopularRobots>
       </MainSection>
       <Footer>
