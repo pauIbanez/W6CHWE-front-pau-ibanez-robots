@@ -11,6 +11,8 @@
 # production
 /build
 
+sonar-key
+
 # misc
 .env
 .DS_Store
