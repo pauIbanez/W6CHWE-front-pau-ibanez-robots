@@ -5,13 +5,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import ApiContextProvider from "./contexts/ApiContextProvider";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import "@fontsource/comfortaa";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ApiContextProvider>
-        <App />
-      </ApiContextProvider>
+      <Provider store={store}>
+        <ApiContextProvider>
+          <App />
+        </ApiContextProvider>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
