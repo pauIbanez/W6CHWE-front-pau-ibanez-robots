@@ -8,12 +8,6 @@ const robotsReducer = (currentRobots = [], action = {}) => {
       newRrobots = [...action.robots];
       break;
 
-    case actionTypes.updateRobot:
-      newRrobots = currentRobots.map((robot) =>
-        robot.id === action.robot.id ? action.robot : robot
-      );
-      break;
-
     case actionTypes.addRobot:
       newRrobots = [...currentRobots, action.robot];
       break;
