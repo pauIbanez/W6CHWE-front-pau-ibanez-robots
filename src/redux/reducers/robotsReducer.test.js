@@ -41,54 +41,6 @@ describe("Given robotsReducer", () => {
     });
   });
 
-  describe("When it's invoked passing 3 robots and a updateRobot action with a new robot", () => {
-    test("Then it should return the robots with the action one updated", () => {
-      const currentRobots = [
-        {
-          id: 1,
-          ssadasdas: "Robot 1",
-        },
-        {
-          id: 2,
-          ssadasdas: "Robot 2",
-        },
-        {
-          id: 3,
-          ssadasdas: "Robot 3",
-        },
-      ];
-
-      const updatedRobot = {
-        id: 2,
-        ssadasdas: "new Robot 2",
-      };
-
-      const expectedRobots = [
-        {
-          id: 1,
-          ssadasdas: "Robot 1",
-        },
-        {
-          id: 2,
-          ssadasdas: "new Robot 2",
-        },
-        {
-          id: 3,
-          ssadasdas: "Robot 3",
-        },
-      ];
-
-      const action = {
-        type: actionTypes.updateRobot,
-        robot: updatedRobot,
-      };
-
-      const newRobots = robotsReducer(currentRobots, action);
-
-      expect(newRobots).toEqual(expectedRobots);
-    });
-  });
-
   describe("When it's invoked passing 3 robots and a addRobot action with a new robot", () => {
     test("Then it should return the 4 robots", () => {
       const currentRobots = [
