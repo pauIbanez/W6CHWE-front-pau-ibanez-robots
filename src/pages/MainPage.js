@@ -17,7 +17,7 @@ const Video = styled.video`
 
 const HeaderInfo = styled.div`
   position: aboslute;
-  background-color: #0e0e0e;
+  background-color: #252525;
   height: 400px;
   margin-top: 600px;
   display: flex;
@@ -60,7 +60,7 @@ const SectionList = styled.ul`
 
 const Footer = styled.footer`
   height: 300px;
-  background-color: #0e0e0e;
+  background-color: #252525;
 `;
 
 const MainPage = () => {

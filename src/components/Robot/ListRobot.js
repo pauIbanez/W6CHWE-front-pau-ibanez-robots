@@ -3,7 +3,7 @@ import styled from "styled-components";
 const RobotHolder = styled.li`
   position: relative;
   height: 400px;
-  border-top: 1px solid #0e0e0e;
+  border-top: 1px solid #6e6e6e;
   display: flex;
   justify-content: space-between;
   align-items: center;

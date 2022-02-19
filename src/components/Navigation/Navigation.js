@@ -6,14 +6,15 @@ const NavMenu = styled.nav`
   height: 100px;
   position: fixed;
   top: 0;
-  background-color: #0e0e0e;
+  background-color: #252525;
   z-index: 2;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 0 100px;
+  box-shadow: 0 0 10px 0 black;
 `;
-const NavLogo = styled.img`
-  background-color: blue;
-`;
+const NavLogo = styled.img``;
 
 const NavHolder = styled.div`
   height: 100%;
@@ -50,7 +51,7 @@ const NavItem = styled(NavProto)`
 const Navigation = ({ current }) => {
   return (
     <NavMenu>
-      <NavLogo width="50px" />
+      <NavLogo height="80px" src="./img/robotsLogo.png" />
       <NavHolder>
         <NavItem to="/home" current={current} thisItem={1}>
           Home
