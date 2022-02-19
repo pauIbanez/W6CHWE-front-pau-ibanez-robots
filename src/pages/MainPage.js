@@ -18,18 +18,19 @@ const NavMenu = styled.nav`
   height: 100px;
   position: fixed;
   top: 0;
-  background-color: gray;
+  background-color: #0e0e0e;
 `;
 
 const HeaderInfo = styled.div`
   position: aboslute;
-  background-color: gray;
+  background-color: #0e0e0e;
   height: 400px;
   margin-top: 600px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   padding: 100px;
+  color: white;
 `;
 
 const MainSection = styled.main`
@@ -65,12 +66,12 @@ const SectionList = styled.ul`
 
 const RobotStyle = styled.li`
   height: 300px;
-  border-top: 1px solid gray;
+  border-top: 1px solid #0e0e0e;
 `;
 
 const Footer = styled.footer`
   height: 300px;
-  background-color: gray;
+  background-color: #0e0e0e;
 `;
 
 const MainPage = () => {
