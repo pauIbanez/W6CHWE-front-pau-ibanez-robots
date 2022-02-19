@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import ListRobot from "../components/Robot/ListRobot";
 import apiContext from "../contexts/apiContext";
 import { loadRobotsAction } from "../redux/actions/actionCreators";
 
@@ -19,6 +20,7 @@ const NavMenu = styled.nav`
   position: fixed;
   top: 0;
   background-color: #0e0e0e;
+  z-index: 2;
 `;
 
 const HeaderInfo = styled.div`
@@ -64,11 +66,6 @@ const SectionList = styled.ul`
   padding: 0;
 `;
 
-const RobotStyle = styled.li`
-  height: 300px;
-  border-top: 1px solid #0e0e0e;
-`;
-
 const Footer = styled.footer`
   height: 300px;
   background-color: #0e0e0e;
@@ -89,8 +86,10 @@ const MainPage = () => {
     }
   }, [dispatch, endpoints, robotAPI]);
 
-  const robotsToRender = robots.map((robot) => (
-    <RobotStyle key={robot.id}></RobotStyle>
+  const popularRobots = robots.filter(({ popular }) => popular);
+
+  const robotsToRender = popularRobots.map((robot, index) => (
+    <ListRobot key={robot.id} robot={robot} flip={index % 2 === 0}></ListRobot>
   ));
 
   return (
