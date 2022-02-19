@@ -98,7 +98,7 @@ const MainPage = () => {
       <header>
         <NavMenu></NavMenu>
         <Video autoPlay muted loop>
-          <source src="./videos/presentation.mp4" type="video/mp4" />
+          <source src="https://imgur.com/rV8zNP8.mp4" type="video/mp4" />
         </Video>
         <HeaderInfo>
           <h1>Robots!</h1>
