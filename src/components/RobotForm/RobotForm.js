@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const Form = styled.form`
@@ -52,6 +52,28 @@ const DescriptionBox = styled.textarea`
   &:focus {
     border: 2px solid gray;
   }
+`;
+
+const ImageHolder = styled.div`
+  position: relative;
+  height: 360px;
+  width: 350px;
+`;
+
+const ImagePlaceHolder = styled.div`
+  border: 2px dashed gray;
+  width: 350px;
+  height: 360px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #696969;
+`;
+
+const Image = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
 `;
 
 const RobotForm = ({ formData, setFormData, onSubmit }) => {
@@ -116,14 +138,21 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
             autoComplete="off"
           />
         </InputThingy>
-        <img
-          src={localImageUrl.current}
-          alt="Robot"
-          height="360"
-          width="350"
-          onError={(event) => (event.target.style.display = "none")}
-          onLoad={(event) => (event.target.style.display = "block")}
-        />
+        <ImageHolder>
+          <Image
+            src={localImageUrl.current}
+            alt="Robot"
+            height="360"
+            width="350"
+            onError={(event) => {
+              event.target.style.display = "none";
+            }}
+            onLoad={(event) => {
+              event.target.style.display = "block";
+            }}
+          />
+          <ImagePlaceHolder>Input a valid image url</ImagePlaceHolder>
+        </ImageHolder>
       </Form>
     </>
   );
