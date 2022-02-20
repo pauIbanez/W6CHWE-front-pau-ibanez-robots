@@ -23,7 +23,7 @@ const RobotInfo = styled.div`
   display: flex;
   flex-direction: column;
   max-height: 80%;
-  max-width: 60%;
+  width: 50%;
   gap: 10px;
   padding: 10px 0;
 
@@ -37,10 +37,14 @@ const RobotInfo = styled.div`
   }
 `;
 
-const Sentient = styled.p`
+const TagHolder = styled.div`
   position: absolute;
   top: 0;
   right: 0;
+  display: flex;
+`;
+
+const Tag = styled.p`
   background-color: purple;
   color: white;
   border-radius: 10px;
@@ -64,6 +68,10 @@ const InfoItem = styled.p`
 `;
 
 const ListRobot = ({ robot, flip = false }) => {
+  const tagsToRender = robot.tags.map((tag) => (
+    <Tag>{tag[0].toUpperCase() + tag.substring(1)}</Tag>
+  ));
+
   const RobotInfoComp = () => (
     <RobotInfo data-testid="robotinfo">
       <h3>{robot.name}</h3>
@@ -71,7 +79,7 @@ const ListRobot = ({ robot, flip = false }) => {
       <InfoItem>{robot.universe}</InfoItem>
       <h4>Description:</h4>
       <InfoItem>{robot.description}</InfoItem>
-      {robot.sentient && <Sentient>Sentient</Sentient>}
+      <TagHolder>{tagsToRender}</TagHolder>
     </RobotInfo>
   );
 

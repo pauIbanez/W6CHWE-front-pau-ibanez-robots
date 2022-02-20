@@ -64,19 +64,23 @@ describe("Given AllRobotsPage", () => {
           id: 1,
           name: "Robot 1",
           popular: true,
+          tags: [],
         },
         {
           id: 2,
           name: "Robot 2",
+          tags: [],
         },
         {
           id: 3,
           name: "Robot 3",
+          tags: [],
         },
         {
           id: 4,
           name: "Robot 4",
           popular: true,
+          tags: [],
         },
       ];
 
@@ -116,20 +120,24 @@ describe("Given AllRobotsPage", () => {
           id: 1,
           name: "Robot 1",
           popular: true,
+          tags: [],
         },
         {
           id: 2,
           name: "Robot 2",
+          tags: [],
         },
         {
           id: 3,
           name: "Pice and 3",
           sentient: true,
+          tags: [],
         },
         {
           id: 4,
           name: "Robot 4",
           popular: true,
+          tags: [],
         },
       ];
 
