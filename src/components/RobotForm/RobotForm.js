@@ -86,6 +86,7 @@ const TagsSelector = styled.select`
   padding-left: 30px;
   width: 300px;
   font-size: 15px;
+  cursor: pointer;
 
   &:focus {
     border: 2px solid gray;
@@ -132,6 +133,7 @@ const TagButton = styled.button`
   display: flex;
   justify: content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const FormFinal = styled.div`
@@ -198,10 +200,38 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
     const mockEvent = {
       target: {
         value: tag,
+        blur: () => {
+          /* equisdé*/
+        },
       },
     };
 
     assesTag(mockEvent);
+  };
+
+  const getTagsToShow = () => {
+    const tags = ["real", "sentient", "humanoid", "life-like", "spaceCraft"];
+    const currentBans = [];
+
+    formData.tags.forEach((tag) => {
+      currentBans.push(...getTagBans(tag));
+    });
+
+    return tags.map((tag) => {
+      if (!currentBans.includes(tag) && !formData.tags.includes(tag)) {
+        return (
+          <option key={tag} value={tag}>
+            {tag[0].toUpperCase() + tag.substring(1)}
+          </option>
+        );
+      } else {
+        return (
+          <option key={tag} value={tag} disabled>
+            {tag[0].toUpperCase() + tag.substring(1)}
+          </option>
+        );
+      }
+    });
   };
 
   const tagsToRender = formData.tags.map((tag) => (
@@ -217,6 +247,34 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
       </TagButton>
     </Tag>
   ));
+
+  const getTagBans = (tag) => {
+    let bans;
+    switch (tag) {
+      case "real":
+        bans = ["sentient"];
+        break;
+      case "sentient":
+        bans = ["real"];
+        break;
+
+      case "humanoid":
+        bans = ["spaceCraft"];
+        break;
+
+      case "spaceCraft":
+        bans = ["humanoid", "life-like"];
+        break;
+
+      case "life-like":
+        bans = ["spaceCraft"];
+        break;
+      default:
+        bans = [];
+    }
+
+    return bans;
+  };
 
   return (
     <>
@@ -299,11 +357,7 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
               <InputName htmlFor="image">Tags</InputName>
               <TagsSelector name="tags" id="tags" value="" onChange={assesTag}>
                 <option value="">Select a Tag</option>
-                <option value="real">Real</option>
-                <option value="sentient">Sentient</option>
-                <option value="humanoid">Humanoid</option>
-                <option value="lifeLike">Life-like</option>
-                <option value="spaceCraft">Space Craft</option>
+                {getTagsToShow()}
               </TagsSelector>
               <TagsShower>{tagsToRender}</TagsShower>
             </TagThingy>
