@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const Form = styled.form`
   display: flex;
@@ -165,7 +166,6 @@ const ForemCol = styled.div`
 
 const RobotForm = ({ formData, setFormData, onSubmit }) => {
   const localImageUrl = useRef(formData.image);
-
   const updateData = (event) => {
     const newFormData = {
       ...formData,
@@ -179,34 +179,25 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
 
   const assesTag = (event) => {
     event.target.blur();
-    if (formData.tags.includes(event.target.value)) {
-      const newTags = formData.tags.filter((tag) => tag !== event.target.value);
-      const newFormData = {
-        ...formData,
-        tags: newTags,
-      };
-      setFormData(newFormData);
-    } else {
-      const newTags = [...formData.tags, event.target.value];
-      const newFormData = {
-        ...formData,
-        tags: newTags,
-      };
-      setFormData(newFormData);
+    if (event.target.value === "") {
+      return;
     }
+    const newTags = [...formData.tags, event.target.value];
+    const newFormData = {
+      ...formData,
+      tags: newTags,
+    };
+    setFormData(newFormData);
   };
 
   const deleteTag = (tag) => {
-    const mockEvent = {
-      target: {
-        value: tag,
-        blur: () => {
-          /* equisdé*/
-        },
-      },
+    const newTags = formData.tags.filter((formTag) => tag !== formTag);
+    const newFormData = {
+      ...formData,
+      tags: newTags,
     };
 
-    assesTag(mockEvent);
+    setFormData(newFormData);
   };
 
   const getTagsToShow = () => {
@@ -242,6 +233,7 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
           event.preventDefault();
           deleteTag(tag);
         }}
+        data-testid={`${tag}-tag-button`}
       >
         <FontAwesomeIcon icon={faXmark} />
       </TagButton>
@@ -250,6 +242,7 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
 
   const getTagBans = (tag) => {
     let bans;
+    // eslint-disable-next-line default-case
     switch (tag) {
       case "real":
         bans = ["sentient"];
@@ -269,8 +262,6 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
       case "life-like":
         bans = ["spaceCraft"];
         break;
-      default:
-        bans = [];
     }
 
     return bans;
@@ -369,6 +360,18 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
       </Form>
     </>
   );
+};
+
+RobotForm.propTypes = {
+  formData: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    universe: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+  setFormData: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default RobotForm;

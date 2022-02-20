@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import apiContext from "../contexts/apiContext";
 import { renderInBocata } from "../setupTests";
 import NewRobotPage from "./NewRobotPage";
@@ -78,6 +78,110 @@ describe("Given NewRobotPage", () => {
         expect.any(Function),
         { body: expectedRobot }
       );
+    });
+  });
+
+  describe("When it's instanciated and the form tags are selected and unselected", () => {
+    test("Then it should disable the expected options", () => {
+      const contextValue = {
+        robotAPI: {
+          endpoints: {
+            create: "createendpoint",
+          },
+          postBody: jest.fn(),
+        },
+        token: "token",
+      };
+
+      renderInBocata(
+        <apiContext.Provider value={contextValue}>
+          <NewRobotPage />
+        </apiContext.Provider>
+      );
+
+      const foundSelectInput = screen.getByRole("combobox", { name: "Tags" });
+      const foundOptions = screen.getAllByRole("option");
+
+      userEvent.selectOptions(foundSelectInput, foundOptions[1]);
+
+      expect(foundOptions[1]).toBeDisabled();
+      expect(foundOptions[2]).toBeDisabled();
+      userEvent.selectOptions(foundSelectInput, foundOptions[5]);
+
+      expect(foundOptions[3]).toBeDisabled();
+      expect(foundOptions[4]).toBeDisabled();
+      expect(foundOptions[5]).toBeDisabled();
+
+      const realTagDelButton = screen.getByTestId("real-tag-button");
+
+      userEvent.click(realTagDelButton);
+
+      expect(foundOptions[1]).not.toBeDisabled();
+      expect(foundOptions[2]).not.toBeDisabled();
+
+      userEvent.selectOptions(foundSelectInput, foundOptions[2]);
+      const spaceCraftTagDelButton = screen.getByTestId(
+        "spaceCraft-tag-button"
+      );
+      userEvent.click(spaceCraftTagDelButton);
+
+      expect(foundOptions[4]).not.toBeDisabled();
+
+      userEvent.selectOptions(foundSelectInput, foundOptions[4]);
+      const lifeLikeTagDelButton = screen.getByTestId("life-like-tag-button");
+      userEvent.click(lifeLikeTagDelButton);
+
+      userEvent.selectOptions(foundSelectInput, foundOptions[0]);
+    });
+  });
+
+  describe("When it's instanciated and the image is broken", () => {
+    test("Then it should not display the image", () => {
+      const contextValue = {
+        robotAPI: {
+          endpoints: {
+            create: "createendpoint",
+          },
+          postBody: jest.fn(),
+        },
+        token: "token",
+      };
+
+      renderInBocata(
+        <apiContext.Provider value={contextValue}>
+          <NewRobotPage />
+        </apiContext.Provider>
+      );
+
+      const foundImage = screen.getByRole("img", { name: "Robot" });
+      fireEvent.error(foundImage);
+
+      expect(foundImage).toHaveStyle("display: none;");
+    });
+  });
+
+  describe("When it's instanciated and the image is okee", () => {
+    test("Then it should display the image", () => {
+      const contextValue = {
+        robotAPI: {
+          endpoints: {
+            create: "createendpoint",
+          },
+          postBody: jest.fn(),
+        },
+        token: "token",
+      };
+
+      renderInBocata(
+        <apiContext.Provider value={contextValue}>
+          <NewRobotPage />
+        </apiContext.Provider>
+      );
+
+      const foundImage = screen.getByRole("img", { name: "Robot" });
+      fireEvent.load(foundImage);
+
+      expect(foundImage).toHaveStyle("display: block;");
     });
   });
 });
