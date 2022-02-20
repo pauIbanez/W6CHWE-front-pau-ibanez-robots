@@ -24,6 +24,7 @@ const SearchButton = styled.button`
   background-color: #f8f9fb;
   border: 1px solid gray;
   border-radius: 50px;
+  cursor: pointer;
 `;
 
 const FilterForm = styled.form`
