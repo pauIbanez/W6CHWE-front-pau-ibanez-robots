@@ -354,7 +354,7 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
               />
             </InputThingy>
             <TagThingy>
-              <InputName htmlFor="image">Tags</InputName>
+              <InputName htmlFor="tags">Tags</InputName>
               <TagsSelector name="tags" id="tags" value="" onChange={assesTag}>
                 <option value="">Select a Tag</option>
                 {getTagsToShow()}
