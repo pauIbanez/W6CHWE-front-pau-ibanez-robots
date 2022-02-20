@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import propTypes from "prop-types";
 
 const RobotHolder = styled.li`
   position: relative;
   height: 400px;
-  border-top: 1px solid #0e0e0e;
+  border-top: 1px solid #6e6e6e;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -63,7 +64,7 @@ const InfoItem = styled.p`
 
 const ListRobot = ({ robot, flip = false }) => {
   const RobotInfoComp = () => (
-    <RobotInfo>
+    <RobotInfo data-testid="robotinfo">
       <h3>{robot.name}</h3>
       <h4>Universe:</h4>
       <InfoItem>{robot.universe}</InfoItem>
@@ -91,6 +92,11 @@ const ListRobot = ({ robot, flip = false }) => {
       )}
     </RobotHolder>
   );
+};
+
+ListRobot.propTypes = {
+  robot: propTypes.object.isRequired,
+  flip: propTypes.bool,
 };
 
 export default ListRobot;

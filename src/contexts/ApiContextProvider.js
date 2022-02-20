@@ -4,6 +4,7 @@ import apiErrorHandler from "../utils/apiErrorHandler";
 import apiContext from "./apiContext";
 
 const apiURL = process.env.REACT_APP_API_URL;
+const log = [];
 
 const ApiContextProvider = ({ children }) => {
   const endpoints = useRef({
@@ -17,7 +18,7 @@ const ApiContextProvider = ({ children }) => {
   const [token, setToken] = useState("");
 
   useEffect(() => {
-    const createdRobotAPI = apiManager.createAPI(apiURL, apiErrorHandler);
+    const createdRobotAPI = apiManager.createAPI(apiURL, apiErrorHandler(log));
 
     createdRobotAPI.getBody(endpoints.current.token, (result) => {
       if (result.ok) {

@@ -2,9 +2,10 @@ import { useContext, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import Navigation from "../components/Navigation/Navigation";
 import ListRobot from "../components/Robot/ListRobot";
 import apiContext from "../contexts/apiContext";
-import { loadRobotsAction } from "../redux/actions/actionCreators";
+import { getAllRobotsApiHandler } from "../utils/apiResultsHandlers";
 
 const Video = styled.video`
   width: 100%;
@@ -14,18 +15,9 @@ const Video = styled.video`
   z-index: -1;
 `;
 
-const NavMenu = styled.nav`
-  width: 100%;
-  height: 100px;
-  position: fixed;
-  top: 0;
-  background-color: #0e0e0e;
-  z-index: 2;
-`;
-
 const HeaderInfo = styled.div`
   position: aboslute;
-  background-color: #0e0e0e;
+  background-color: #252525;
   height: 400px;
   margin-top: 600px;
   display: flex;
@@ -68,7 +60,7 @@ const SectionList = styled.ul`
 
 const Footer = styled.footer`
   height: 300px;
-  background-color: #0e0e0e;
+  background-color: #252525;
 `;
 
 const MainPage = () => {
@@ -78,11 +70,7 @@ const MainPage = () => {
 
   useEffect(() => {
     if (robotAPI.ready) {
-      robotAPI.getBody(endpoints.robots, (result) => {
-        if (result.ok) {
-          dispatch(loadRobotsAction(result.body.robots));
-        }
-      });
+      robotAPI.getBody(endpoints.robots, getAllRobotsApiHandler(dispatch));
     }
   }, [dispatch, endpoints, robotAPI]);
 
@@ -95,7 +83,7 @@ const MainPage = () => {
   return (
     <>
       <header>
-        <NavMenu></NavMenu>
+        <Navigation current={1} />
         <Video autoPlay muted loop>
           <source src="https://imgur.com/rV8zNP8.mp4" type="video/mp4" />
         </Video>
