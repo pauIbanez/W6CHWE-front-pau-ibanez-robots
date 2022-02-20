@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Navigation from "../Navigation/Navigation";
+import PropTypes from "prop-types";
 
 const Video = styled.video`
   width: 100%;
@@ -24,7 +25,7 @@ const HeaderInfo = styled.div`
   color: white;
 `;
 
-const Header = ({ video = false, current }) => {
+const Header = ({ current, texts = null, video = false }) => {
   return (
     <header>
       <Navigation current={current} />
@@ -34,11 +35,24 @@ const Header = ({ video = false, current }) => {
         </Video>
       )}
       <HeaderInfo video={video}>
-        <h1>Robots!</h1>
-        <p>Yes, Robots, we have them! Lots of them!</p>
+        <h1>{texts ? texts.title : "Robots!"}</h1>
+        <p>
+          {texts
+            ? texts.description
+            : "Yes, Robots, we have them! Lots of them!"}
+        </p>
       </HeaderInfo>
     </header>
   );
+};
+
+Header.propTypes = {
+  current: PropTypes.number.isRequired,
+  video: PropTypes.bool,
+  texts: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  }),
 };
 
 export default Header;
