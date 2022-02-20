@@ -1,4 +1,5 @@
 import { screen } from "@testing-library/react";
+import apiContext from "../contexts/apiContext";
 import { renderInBocata } from "../setupTests";
 import MainPage from "./MainPage";
 
@@ -8,7 +9,17 @@ describe("Given MainPage", () => {
       const expectedHeadingOne = "Robots!";
       const expectedHeadingTwo = "Popular robots";
 
-      renderInBocata(<MainPage />);
+      const contextValue = {
+        robotAPI: {
+          getBody: () => {},
+        },
+      };
+
+      renderInBocata(
+        <apiContext.Provider value={contextValue}>
+          <MainPage />
+        </apiContext.Provider>
+      );
 
       const foundHeadingOne = screen.getByRole("heading", {
         name: expectedHeadingOne,
