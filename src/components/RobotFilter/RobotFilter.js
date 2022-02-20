@@ -43,7 +43,7 @@ const RobotFilter = ({ filterData, setFilterData, applyFilters }) => {
         applyFilters();
       }}
     >
-      <HiddenLabel htmlFor="query">Search </HiddenLabel>
+      <HiddenLabel htmlFor="query">Search</HiddenLabel>
       <SearchBox
         type="text"
         name="query"
