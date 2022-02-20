@@ -1,6 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import Header from "../components/Header/Header";
 import ListRobot from "../components/Robot/ListRobot";

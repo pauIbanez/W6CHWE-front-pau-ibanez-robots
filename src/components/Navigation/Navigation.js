@@ -42,10 +42,7 @@ const NavProto = styled(Link)`
 const NavItem = styled(NavProto)`
   ${({ current, index }) =>
     current === index
-      ? `
-        border-bottom: 2px solid white;
-        font-weight: 600;
-        `
+      ? "border-bottom: 2px solid white; font-weight: 600;"
       : ""}
 `;
 
