@@ -77,6 +77,8 @@ const MainPage = () => {
     }
   }, [dispatch, robotAPI]);
 
+  console.log("asdasdas", robots);
+
   const popularRobots = robots.filter(({ popular }) => popular);
 
   const robotsToRender = popularRobots.map((robot, index) => (
