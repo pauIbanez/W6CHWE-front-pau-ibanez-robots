@@ -1,5 +1,8 @@
 import actionTypes from "../redux/actions/actionTypes";
-import { getAllRobotsApiHandler } from "./apiResultsHandlers";
+import {
+  getAllRobotsApiHandler,
+  getCreateRobotApiHandler,
+} from "./apiResultsHandlers";
 
 describe("Given getAllRobotsApiHandler", () => {
   describe("When it's invoked with a dispatch and a result", () => {
@@ -51,6 +54,51 @@ describe("Given getAllRobotsApiHandler", () => {
       };
 
       const resultHandler = getAllRobotsApiHandler(mockDispatch);
+      resultHandler(result);
+
+      expect(mockDispatch).not.toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given getCreateRobotApiHandler", () => {
+  describe("When it's invoked with a dispatch and a result", () => {
+    test("Then it should call dispatch with a addRobotAction with the robot", () => {
+      const mockDispatch = jest.fn();
+      const robot = [
+        {
+          id: 1,
+          name: "Robot 1",
+          desctiption: "This a robot",
+        },
+      ];
+
+      const result = {
+        ok: true,
+        body: robot,
+      };
+
+      const expectedAction = {
+        type: actionTypes.addRobot,
+        robot,
+      };
+
+      const resultHandler = getCreateRobotApiHandler(mockDispatch);
+      resultHandler(result);
+
+      expect(mockDispatch).toHaveBeenCalledWith(expectedAction);
+    });
+  });
+
+  describe("When it's invoked with a dispatch and a result as not ok", () => {
+    test("Then it should not call dispatch", () => {
+      const mockDispatch = jest.fn();
+
+      const result = {
+        ok: false,
+      };
+
+      const resultHandler = getCreateRobotApiHandler(mockDispatch);
       resultHandler(result);
 
       expect(mockDispatch).not.toHaveBeenCalled();
