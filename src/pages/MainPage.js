@@ -2,30 +2,11 @@ import { useContext, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import Header from "../components/Header/Header";
 import Navigation from "../components/Navigation/Navigation";
 import ListRobot from "../components/Robot/ListRobot";
 import apiContext from "../contexts/apiContext";
 import { getAllRobotsApiHandler } from "../utils/apiResultsHandlers";
-
-const Video = styled.video`
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-`;
-
-const HeaderInfo = styled.div`
-  position: aboslute;
-  background-color: #252525;
-  height: 400px;
-  margin-top: 600px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding: 100px;
-  color: white;
-`;
 
 const MainSection = styled.main`
   width: 100%;
@@ -87,16 +68,7 @@ const MainPage = () => {
 
   return (
     <>
-      <header>
-        <Navigation current={1} />
-        <Video autoPlay muted loop>
-          <source src="https://imgur.com/rV8zNP8.mp4" type="video/mp4" />
-        </Video>
-        <HeaderInfo>
-          <h1>Robots!</h1>
-          <p>Yes, Robots, we have them! Lots of them!</p>
-        </HeaderInfo>
-      </header>
+      <Header video current={1} />
       <MainSection>
         <PopularRobots>
           <SectionTitle>

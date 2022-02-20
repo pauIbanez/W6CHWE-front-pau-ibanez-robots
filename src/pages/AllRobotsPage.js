@@ -2,22 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import Navigation from "../components/Navigation/Navigation";
+import Header from "../components/Header/Header";
 import ListRobot from "../components/Robot/ListRobot";
 import RobotFilter from "../components/RobotFilter/RobotFilter";
 import apiContext from "../contexts/apiContext";
 import { getAllRobotsApiHandler } from "../utils/apiResultsHandlers";
-
-const HeaderInfo = styled.div`
-  background-color: #252525;
-  margin-top: 50px;
-  height: 400px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding: 100px;
-  color: white;
-`;
 
 const MainSection = styled.main`
   width: 100%;
@@ -130,13 +119,7 @@ const AllRobotsPage = () => {
 
   return (
     <>
-      <header>
-        <Navigation current={2} />
-        <HeaderInfo>
-          <h1>Robots!</h1>
-          <p>Yes, Robots, we have them! Lots of them!</p>
-        </HeaderInfo>
-      </header>
+      <Header current={2} />
       <MainSection>
         <AllRobots>
           <SectionInfo>
