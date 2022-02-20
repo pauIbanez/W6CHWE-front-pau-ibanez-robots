@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const NavMenu = styled.nav`
   width: 100%;
@@ -57,14 +58,18 @@ const Navigation = ({ current }) => {
           Home
         </NavItem>
         <NavItem to="/all" current={current} index={2}>
-          All robots
+          All Robots
         </NavItem>
         <NavItem to="/robot/new" current={current} index={2}>
-          Upload a robot!
+          Upload a Robot!
         </NavItem>
       </NavHolder>
     </NavMenu>
   );
+};
+
+Navigation.propTypes = {
+  current: PropTypes.number.isRequired,
 };
 
 export default Navigation;
