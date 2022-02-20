@@ -3,6 +3,7 @@ import AllRobotsPage from "./pages/AllRobotsPage";
 import MainPage from "./pages/MainPage";
 import NewRobotPage from "./pages/NewRobotPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import RobotDetailsPage from "./pages/RobotDeatailsPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route path="/home" element={<MainPage />} />
       <Route path="/all" element={<AllRobotsPage />} />
       <Route path="/robot/new" element={<NewRobotPage />} />
+      <Route path="/robot/:id" element={<RobotDetailsPage />} />
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

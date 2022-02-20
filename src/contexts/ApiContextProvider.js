@@ -7,6 +7,7 @@ const apiURL = process.env.REACT_APP_API_URL;
 const log = [];
 const endpoints = {
   robots: "robots",
+  robot: "robots",
   create: "robots/create",
   token: "token",
 };

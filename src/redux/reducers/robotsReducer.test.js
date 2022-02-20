@@ -141,6 +141,33 @@ describe("Given robotsReducer", () => {
     });
   });
 
+  describe("When it's invoked passing 0 robots and a replaceRobot action with a new robot", () => {
+    test("Then it should return the new Robot", () => {
+      const currentRobots = [];
+
+      const updatedRobot = {
+        id: 2,
+        ssadasdas: "new Robot 2",
+      };
+
+      const expectedRobots = [
+        {
+          id: 2,
+          ssadasdas: "new Robot 2",
+        },
+      ];
+
+      const action = {
+        type: actionTypes.replaceRobot,
+        robot: updatedRobot,
+      };
+
+      const newRobots = robotsReducer(currentRobots, action);
+
+      expect(newRobots).toEqual(expectedRobots);
+    });
+  });
+
   describe("When it's invoked passing 3 robots and a deleteRobot action with id 3", () => {
     test("Then it should return the robots withoput the robot with id 3", () => {
       const currentRobots = [
