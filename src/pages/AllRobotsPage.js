@@ -1,23 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import Navigation from "../components/Navigation/Navigation";
+import Header from "../components/Header/Header";
 import ListRobot from "../components/Robot/ListRobot";
 import RobotFilter from "../components/RobotFilter/RobotFilter";
 import apiContext from "../contexts/apiContext";
 import { getAllRobotsApiHandler } from "../utils/apiResultsHandlers";
-
-const HeaderInfo = styled.div`
-  background-color: #252525;
-  margin-top: 50px;
-  height: 400px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding: 100px;
-  color: white;
-`;
 
 const MainSection = styled.main`
   width: 100%;
@@ -63,25 +51,28 @@ const Footer = styled.footer`
 
 const AllRobotsPage = () => {
   const dispatch = useDispatch();
-  const { robotAPI, endpoints } = useContext(apiContext);
+  const { robotAPI } = useContext(apiContext);
   const { robots } = useSelector((state) => state);
 
   useEffect(() => {
     if (robotAPI.ready) {
-      robotAPI.getBody(endpoints.robots, getAllRobotsApiHandler(dispatch));
+      robotAPI.getBody(
+        robotAPI.endpoints.robots,
+        getAllRobotsApiHandler(dispatch)
+      );
     }
-  }, [dispatch, endpoints, robotAPI]);
+  }, [dispatch, robotAPI]);
 
   const blankFilter = {
     query: "",
-    tags: "",
+    tags: [],
   };
 
   const [filterData, setFilterData] = useState(blankFilter);
   const [robotsToRender, setRobotsToRender] = useState([]);
   const [filteredRobots, setFilteredRobots] = useState([]);
 
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     if (filterData.query) {
       setFilteredRobots(
         robots.filter((robot) => {
@@ -108,10 +99,17 @@ const AllRobotsPage = () => {
     } else {
       setFilteredRobots([...robots]);
     }
-  };
+  }, [filterData.query, robots]);
+
   useEffect(() => {
     setFilteredRobots([...robots]);
   }, [robots]);
+
+  useEffect(() => {
+    if (filterData.query === "") {
+      applyFilters();
+    }
+  }, [applyFilters, filterData.query]);
 
   useEffect(() => {
     setRobotsToRender(
@@ -127,13 +125,7 @@ const AllRobotsPage = () => {
 
   return (
     <>
-      <header>
-        <Navigation current={2} />
-        <HeaderInfo>
-          <h1>Robots!</h1>
-          <p>Yes, Robots, we have them! Lots of them!</p>
-        </HeaderInfo>
-      </header>
+      <Header current={2} />
       <MainSection>
         <AllRobots>
           <SectionInfo>

@@ -1,31 +1,10 @@
 import { useContext, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import Navigation from "../components/Navigation/Navigation";
+import Header from "../components/Header/Header";
 import ListRobot from "../components/Robot/ListRobot";
 import apiContext from "../contexts/apiContext";
 import { getAllRobotsApiHandler } from "../utils/apiResultsHandlers";
-
-const Video = styled.video`
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-`;
-
-const HeaderInfo = styled.div`
-  position: aboslute;
-  background-color: #252525;
-  height: 400px;
-  margin-top: 600px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding: 100px;
-  color: white;
-`;
 
 const MainSection = styled.main`
   width: 100%;
@@ -65,14 +44,17 @@ const Footer = styled.footer`
 
 const MainPage = () => {
   const dispatch = useDispatch();
-  const { robotAPI, endpoints } = useContext(apiContext);
+  const { robotAPI } = useContext(apiContext);
   const { robots } = useSelector((state) => state);
 
   useEffect(() => {
     if (robotAPI.ready) {
-      robotAPI.getBody(endpoints.robots, getAllRobotsApiHandler(dispatch));
+      robotAPI.getBody(
+        robotAPI.endpoints.robots,
+        getAllRobotsApiHandler(dispatch)
+      );
     }
-  }, [dispatch, endpoints, robotAPI]);
+  }, [dispatch, robotAPI]);
 
   const popularRobots = robots.filter(({ popular }) => popular);
 
@@ -82,16 +64,7 @@ const MainPage = () => {
 
   return (
     <>
-      <header>
-        <Navigation current={1} />
-        <Video autoPlay muted loop>
-          <source src="https://imgur.com/rV8zNP8.mp4" type="video/mp4" />
-        </Video>
-        <HeaderInfo>
-          <h1>Robots!</h1>
-          <p>Yes, Robots, we have them! Lots of them!</p>
-        </HeaderInfo>
-      </header>
+      <Header video current={1} />
       <MainSection>
         <PopularRobots>
           <SectionTitle>
