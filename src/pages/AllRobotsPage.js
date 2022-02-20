@@ -63,14 +63,17 @@ const Footer = styled.footer`
 
 const AllRobotsPage = () => {
   const dispatch = useDispatch();
-  const { robotAPI, endpoints } = useContext(apiContext);
+  const { robotAPI } = useContext(apiContext);
   const { robots } = useSelector((state) => state);
 
   useEffect(() => {
     if (robotAPI.ready) {
-      robotAPI.getBody(endpoints.robots, getAllRobotsApiHandler(dispatch));
+      robotAPI.getBody(
+        robotAPI.endpoints.robots,
+        getAllRobotsApiHandler(dispatch)
+      );
     }
-  }, [dispatch, endpoints, robotAPI]);
+  }, [dispatch, robotAPI]);
 
   const blankFilter = {
     query: "",
