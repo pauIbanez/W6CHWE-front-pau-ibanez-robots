@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Navigation from "../components/Navigation/Navigation";
 import ListRobot from "../components/Robot/ListRobot";
 import apiContext from "../contexts/apiContext";
-import { loadRobotsAction } from "../redux/actions/actionCreators";
+import { getAllRobotsApiHandler } from "../utils/apiResultsHandlers";
 
 const Video = styled.video`
   width: 100%;
@@ -70,11 +70,7 @@ const MainPage = () => {
 
   useEffect(() => {
     if (robotAPI.ready) {
-      robotAPI.getBody(endpoints.robots, (result) => {
-        if (result.ok) {
-          dispatch(loadRobotsAction(result.body.robots));
-        }
-      });
+      robotAPI.getBody(endpoints.robots, getAllRobotsApiHandler(dispatch));
     }
   }, [dispatch, endpoints, robotAPI]);
 

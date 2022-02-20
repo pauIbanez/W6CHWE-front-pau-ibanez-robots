@@ -39,8 +39,8 @@ const NavProto = styled(Link)`
 `;
 
 const NavItem = styled(NavProto)`
-  ${({ current, thisItem }) =>
-    current === thisItem
+  ${({ current, index }) =>
+    current === index
       ? `
         border-bottom: 2px solid white;
         font-weight: 600;
@@ -53,13 +53,13 @@ const Navigation = ({ current }) => {
     <NavMenu>
       <NavLogo height="80px" src="./img/robotsLogo.png" />
       <NavHolder>
-        <NavItem to="/home" current={current} thisItem={1}>
+        <NavItem to="/home" current={current} index={1}>
           Home
         </NavItem>
-        <NavItem to="/all" current={current} thisItem={2}>
+        <NavItem to="/all" current={current} index={2}>
           All robots
         </NavItem>
-        <NavItem to="/robot/new" current={current} thisItem={2}>
+        <NavItem to="/robot/new" current={current} index={2}>
           Upload a robot!
         </NavItem>
       </NavHolder>
