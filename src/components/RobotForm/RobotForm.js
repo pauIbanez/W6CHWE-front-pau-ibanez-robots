@@ -6,7 +6,7 @@ import styled from "styled-components";
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 50px;
 `;
 
 const InputThingy = styled.div`
@@ -158,8 +158,7 @@ const FormRow = styled.div`
 const ForemCol = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 30px;
+  gap: 50px;
 `;
 
 const RobotForm = ({ formData, setFormData, onSubmit }) => {
@@ -177,6 +176,7 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
   };
 
   const assesTag = (event) => {
+    event.target.blur();
     if (formData.tags.includes(event.target.value)) {
       const newTags = formData.tags.filter((tag) => tag !== event.target.value);
       const newFormData = {
@@ -200,6 +200,7 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
         value: tag,
       },
     };
+
     assesTag(mockEvent);
   };
 
@@ -231,6 +232,7 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
             onChange={updateData}
             autoComplete="off"
             placeholder="Robot name..."
+            required
           />
         </InputThingy>
         <InputThingy>
@@ -243,6 +245,7 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
             onChange={updateData}
             autoComplete="off"
             placeholder="Robot description..."
+            required
           />
         </InputThingy>
 
@@ -258,6 +261,7 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
                 onChange={updateData}
                 autoComplete="off"
                 placeholder="Image url..."
+                required
               />
             </InputThingy>
             <ImageHolder>
@@ -288,6 +292,7 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
                 onChange={updateData}
                 autoComplete="off"
                 placeholder="Robot universe..."
+                required
               />
             </InputThingy>
             <TagThingy>

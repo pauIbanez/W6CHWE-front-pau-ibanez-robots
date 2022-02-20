@@ -1,7 +1,11 @@
 import { useState } from "react";
+import styled from "styled-components";
 import Header from "../components/Header/Header";
 import RobotForm from "../components/RobotForm/RobotForm";
 
+const FormHolder = styled.div`
+  padding: 100px;
+`;
 const NewRobotPage = () => {
   const headerTexts = {
     title: "Upload a Robot!",
@@ -14,7 +18,6 @@ const NewRobotPage = () => {
     image: "",
     universe: "",
     tags: [],
-    apperances: [],
   };
 
   const [formData, setFormData] = useState(blankForm);
@@ -24,11 +27,13 @@ const NewRobotPage = () => {
   return (
     <>
       <Header current={3} texts={headerTexts} />
-      <RobotForm
-        formData={formData}
-        setFormData={setFormData}
-        onSubmit={submit}
-      />
+      <FormHolder>
+        <RobotForm
+          formData={formData}
+          setFormData={setFormData}
+          onSubmit={submit}
+        />
+      </FormHolder>
     </>
   );
 };
