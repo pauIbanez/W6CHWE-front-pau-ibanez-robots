@@ -13,8 +13,9 @@ const RobotHolder = styled.li`
 `;
 
 const RobotImage = styled.img`
-  max-height: 90%;
+  height: 360px;
   max-width: 400px;
+  object-fit: contain;
 `;
 
 const RobotInfo = styled.div`
@@ -75,7 +76,7 @@ const ListRobot = ({ robot, flip = false }) => {
   );
 
   const RobotImageComp = () => (
-    <RobotImage src={robot.image} alt="RobotImage" />
+    <RobotImage src={robot.image} alt="Robot Image" height="360" width="350" />
   );
   return (
     <RobotHolder>

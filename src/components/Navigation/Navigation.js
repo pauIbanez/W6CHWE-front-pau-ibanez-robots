@@ -52,7 +52,12 @@ const NavItem = styled(NavProto)`
 const Navigation = ({ current }) => {
   return (
     <NavMenu>
-      <NavLogo height="80px" src="./img/robotsLogo.png" />
+      <NavLogo
+        height="80"
+        width="68"
+        src="./img/robotsLogo.png"
+        alt="Robots logo"
+      />
       <NavHolder>
         <NavItem to="/home" current={current} index={1}>
           Home
@@ -60,7 +65,7 @@ const Navigation = ({ current }) => {
         <NavItem to="/all" current={current} index={2}>
           All Robots
         </NavItem>
-        <NavItem to="/robot/new" current={current} index={2}>
+        <NavItem to="/robot/new" current={current} index={3}>
           Upload a Robot!
         </NavItem>
       </NavHolder>
