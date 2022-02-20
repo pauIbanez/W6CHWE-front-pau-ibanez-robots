@@ -47,7 +47,8 @@
     "collectCoverageFrom": [
       "!src/index.js",
       "!src/reportWebVitals.js",
-      "!src/setupTests.js"
+      "!src/setupTests.js",
+      "!src/contexts/ApiContextProvider.js"
     ]
   }
 }
