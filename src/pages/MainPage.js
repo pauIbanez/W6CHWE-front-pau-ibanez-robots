@@ -56,7 +56,7 @@ const MainPage = () => {
     }
   }, [dispatch, robotAPI]);
 
-  const popularRobots = robots.filter(({ popular }) => popular);
+  const popularRobots = robots.filter(({ tags }) => tags.includes("popular"));
 
   const robotsToRender = popularRobots.map((robot, index) => (
     <ListRobot key={robot.id} robot={robot} flip={index % 2 === 0}></ListRobot>

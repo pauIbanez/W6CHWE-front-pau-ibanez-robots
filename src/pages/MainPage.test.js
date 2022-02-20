@@ -84,24 +84,27 @@ describe("Given MainPage", () => {
         {
           id: 1,
           name: "Robot 1",
-          popular: true,
-          tags: [],
+          tags: ["popular"],
+          createdAt: "2022-02-20T19:46:11.056+00:00",
         },
         {
           id: 2,
           name: "Robot 2",
           tags: [],
+          createdAt: "2022-02-20T19:46:11.056+00:00",
         },
         {
           id: 3,
           name: "Robot 3",
           tags: [],
+          createdAt: "2022-02-20T19:46:11.056+00:00",
         },
         {
           id: 4,
           name: "Robot 4",
           popular: true,
           tags: [],
+          createdAt: "2022-02-20T19:46:11.056+00:00",
         },
       ];
 

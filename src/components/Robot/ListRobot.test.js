@@ -10,6 +10,7 @@ describe("Given ListRobot", () => {
         universe: "Jest",
         description: "This bot ensures my code is nisuuu",
         tags: [],
+        createdAt: "2022-02-20T19:46:11.056+00:00",
       };
 
       render(<ListRobot robot={robot} />);
@@ -31,6 +32,7 @@ describe("Given ListRobot", () => {
         universe: "Jest",
         description: "This bot ensures my code is nisuuu",
         tags: [],
+        createdAt: "2022-02-20T19:46:11.056+00:00",
       };
 
       render(<ListRobot robot={robot} />);
@@ -51,6 +53,7 @@ describe("Given ListRobot", () => {
         universe: "Jest",
         description: "This bot ensures my code is nisuuu",
         tags: [],
+        createdAt: "2022-02-20T19:46:11.056+00:00",
       };
 
       render(<ListRobot robot={robot} flip={true} />);
@@ -71,6 +74,29 @@ describe("Given ListRobot", () => {
         universe: "Jest",
         description: "This bot ensures my code is nisuuu",
         tags: ["real", "un tt de metal"],
+        createdAt: "2022-02-20T19:46:11.056+00:00",
+      };
+
+      const expectedTags = ["Real", "Un tt de metal"];
+
+      render(<ListRobot robot={robot} flip={true} />);
+
+      const realTag = screen.getByText(expectedTags[0]);
+      const ttTag = screen.getByText(expectedTags[1]);
+
+      expect(realTag).toBeInTheDocument();
+      expect(ttTag).toBeInTheDocument();
+    });
+  });
+
+  describe("When it's instanciated with a created at date", () => {
+    test("Then it should render it", () => {
+      const robot = {
+        name: "testing bot",
+        universe: "Jest",
+        description: "This bot ensures my code is nisuuu",
+        tags: ["real", "un tt de metal"],
+        createdAt: "2022-02-20T19:46:11.056+00:00",
       };
 
       const expectedTags = ["Real", "Un tt de metal"];

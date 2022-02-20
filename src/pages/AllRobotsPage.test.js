@@ -65,22 +65,26 @@ describe("Given AllRobotsPage", () => {
           name: "Robot 1",
           popular: true,
           tags: [],
+          createdAt: "2022-02-20T19:46:11.056+00:00",
         },
         {
           id: 2,
           name: "Robot 2",
           tags: [],
+          createdAt: "2022-02-20T19:46:11.056+00:00",
         },
         {
           id: 3,
           name: "Robot 3",
           tags: [],
+          createdAt: "2022-02-20T19:46:11.056+00:00",
         },
         {
           id: 4,
           name: "Robot 4",
           popular: true,
           tags: [],
+          createdAt: "2022-02-20T19:46:11.056+00:00",
         },
       ];
 
@@ -121,23 +125,27 @@ describe("Given AllRobotsPage", () => {
           name: "Robot 1",
           popular: true,
           tags: [],
+          createdAt: "2022-02-20T19:46:11.056+00:00",
         },
         {
           id: 2,
           name: "Robot 2",
           tags: [],
+          createdAt: "2022-02-20T19:46:11.056+00:00",
         },
         {
           id: 3,
           name: "Pice and 3",
           sentient: true,
           tags: [],
+          createdAt: "2022-02-20T19:46:11.056+00:00",
         },
         {
           id: 4,
           name: "Robot 4",
           popular: true,
           tags: [],
+          createdAt: "2022-02-20T19:46:11.056+00:00",
         },
       ];
 

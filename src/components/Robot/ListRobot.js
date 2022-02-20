@@ -3,13 +3,16 @@ import propTypes from "prop-types";
 
 const RobotHolder = styled.li`
   position: relative;
-  height: 400px;
+  height: 450px;
   border-top: 1px solid #6e6e6e;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 100px;
   z-index: 0;
+  background-color: #252525;
+  color: white;
+  border-radius: 10px;
 `;
 
 const RobotImage = styled.img`
@@ -42,6 +45,7 @@ const TagHolder = styled.div`
   top: 0;
   right: 0;
   display: flex;
+  gap: 10px;
 `;
 
 const Tag = styled.p`
@@ -54,9 +58,9 @@ const Tag = styled.p`
 
 const InfoItem = styled.p`
   overflow-y: scroll;
-  background-color: #ebebeb;
+  background-color: #0e0e0e;
   border-radius: 10px;
-  padding: 5px;
+  padding: 7px;
   width: fit-content;
 
   -ms-overflow-style: none;
@@ -67,10 +71,17 @@ const InfoItem = styled.p`
   }
 `;
 
+const CreationDate = styled.p`
+  margin: 0;
+  color: #696969;
+`;
+
 const ListRobot = ({ robot, flip = false }) => {
   const tagsToRender = robot.tags.map((tag) => (
-    <Tag>{tag[0].toUpperCase() + tag.substring(1)}</Tag>
+    <Tag key={tag}>{tag[0].toUpperCase() + tag.substring(1)}</Tag>
   ));
+
+  const date = new Date(robot.createdAt.toString()).toLocaleString();
 
   const RobotInfoComp = () => (
     <RobotInfo data-testid="robotinfo">
@@ -79,6 +90,7 @@ const ListRobot = ({ robot, flip = false }) => {
       <InfoItem>{robot.universe}</InfoItem>
       <h4>Description:</h4>
       <InfoItem>{robot.description}</InfoItem>
+      <CreationDate>{date}</CreationDate>
       <TagHolder>{tagsToRender}</TagHolder>
     </RobotInfo>
   );

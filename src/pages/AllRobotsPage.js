@@ -27,7 +27,7 @@ const SectionInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 200px;
+  height: 300px;
   gap: 50px;
 
   h2 {
@@ -42,6 +42,9 @@ const SectionList = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 const Footer = styled.footer`
@@ -65,7 +68,6 @@ const AllRobotsPage = () => {
 
   const blankFilter = {
     query: "",
-    tags: [],
   };
 
   const [filterData, setFilterData] = useState(blankFilter);
@@ -77,20 +79,19 @@ const AllRobotsPage = () => {
       setFilteredRobots(
         robots.filter((robot) => {
           let match = false;
-          let queries = filterData.query.toLowerCase().split(" ");
+          const queries = filterData.query.toLowerCase().split(" ");
 
+          const words = [];
           Object.entries(robot).forEach((entry) => {
-            if (typeof entry[1] === "boolean") {
-              if (queries.includes(entry[0].toLowerCase())) {
-                match = true;
-              }
-            } else if (typeof entry[1] === "string") {
-              const words = entry[1].toLowerCase().split(" ");
-              queries.forEach((queryWord) => {
-                if (words.includes(queryWord)) {
-                  match = true;
-                }
-              });
+            if (typeof entry[1] === "string") {
+              words.push(...entry[1].toLowerCase().split(" "));
+            }
+          });
+          const massiveWordArray = [...words, ...robot.tags];
+
+          queries.forEach((queryWord) => {
+            if (massiveWordArray.includes(queryWord)) {
+              match = true;
             }
           });
           return match;
