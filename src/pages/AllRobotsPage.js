@@ -1,9 +1,10 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Navigation from "../components/Navigation/Navigation";
 import ListRobot from "../components/Robot/ListRobot";
+import RobotFilter from "../components/RobotFilter/RobotFilter";
 import apiContext from "../contexts/apiContext";
 import { getAllRobotsApiHandler } from "../utils/apiResultsHandlers";
 
@@ -22,18 +23,24 @@ const MainSection = styled.main`
   width: 100%;
 `;
 
-const PopularRobots = styled.section`
+const AllRobots = styled.section`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   padding: 0 100px;
 `;
 
 const SectionTitle = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const SectionInfo = styled.div`
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   height: 200px;
-  gap: 10px;
+  gap: 50px;
 
   h2 {
     margin: 0;
@@ -65,9 +72,58 @@ const AllRobotsPage = () => {
     }
   }, [dispatch, endpoints, robotAPI]);
 
-  const robotsToRender = robots.map((robot, index) => (
-    <ListRobot key={robot.id} robot={robot} flip={index % 2 === 0}></ListRobot>
-  ));
+  const blankFilter = {
+    query: "",
+    tags: "",
+  };
+
+  const [filterData, setFilterData] = useState(blankFilter);
+  const [robotsToRender, setRobotsToRender] = useState([]);
+  const [filteredRobots, setFilteredRobots] = useState([]);
+
+  const applyFilters = () => {
+    if (filterData.query) {
+      setFilteredRobots(
+        robots.filter((robot) => {
+          let match = false;
+          let queries = filterData.query.toLowerCase().split(" ");
+
+          Object.entries(robot).forEach((entry) => {
+            if (typeof entry[1] === "boolean") {
+              if (queries.includes(entry[0].toLowerCase())) {
+                match = true;
+              }
+            } else if (typeof entry[1] === "string") {
+              const words = entry[1].toLowerCase().split(" ");
+              queries.forEach((queryWord) => {
+                if (words.includes(queryWord)) {
+                  match = true;
+                }
+              });
+            }
+          });
+          return match;
+        })
+      );
+    } else {
+      setFilteredRobots([...robots]);
+    }
+  };
+  useEffect(() => {
+    setFilteredRobots([...robots]);
+  }, [robots]);
+
+  useEffect(() => {
+    setRobotsToRender(
+      filteredRobots.map((robot, index) => (
+        <ListRobot
+          key={robot.id}
+          robot={robot}
+          flip={index % 2 === 0}
+        ></ListRobot>
+      ))
+    );
+  }, [filteredRobots]);
 
   return (
     <>
@@ -79,16 +135,23 @@ const AllRobotsPage = () => {
         </HeaderInfo>
       </header>
       <MainSection>
-        <PopularRobots>
-          <SectionTitle>
-            <h2>All of our robots</h2>
-            <p>
-              Explore the all the robots we have at our collection. Some real,
-              some fiction, all impressive pices of technology.
-            </p>
-          </SectionTitle>
+        <AllRobots>
+          <SectionInfo>
+            <SectionTitle>
+              <h2>All of our robots</h2>
+              <p>
+                Explore the all the robots we have at our collection. Some real,
+                some fiction, all impressive pices of technology.
+              </p>
+            </SectionTitle>
+            <RobotFilter
+              filterData={filterData}
+              setFilterData={setFilterData}
+              applyFilters={applyFilters}
+            />
+          </SectionInfo>
           <SectionList>{robotsToRender}</SectionList>
-        </PopularRobots>
+        </AllRobots>
       </MainSection>
       <Footer>
         <h2>Footer here</h2>
