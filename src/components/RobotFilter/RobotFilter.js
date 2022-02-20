@@ -2,7 +2,6 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const HiddenLabel = styled.label`
-  // visibility: hidden;
   display: none;
 `;
 
@@ -13,6 +12,10 @@ const SearchBox = styled.input`
   border: 1px solid gray;
   padding-left: 30px;
   width: 300px;
+
+  &:focus {
+    border: 2px solid gray;
+  }
 `;
 
 const SearchButton = styled.button`
