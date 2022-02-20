@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const HiddenLabel = styled.label`
   // visibility: hidden;
@@ -30,10 +31,6 @@ const FilterForm = styled.form`
 
 const RobotFilter = ({ filterData, setFilterData, applyFilters }) => {
   const changedata = (event) => {
-    if (event.target.value === "") {
-      applyFilters();
-    }
-
     setFilterData({ ...filterData, [event.target.id]: event.target.value });
   };
   return (
@@ -55,6 +52,15 @@ const RobotFilter = ({ filterData, setFilterData, applyFilters }) => {
       <SearchButton type="submit"> Search! </SearchButton>
     </FilterForm>
   );
+};
+
+RobotFilter.propTypes = {
+  filterData: PropTypes.shape({
+    query: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }),
+  setFilterData: PropTypes.func.isRequired,
+  applyFilters: PropTypes.func.isRequired,
 };
 
 export default RobotFilter;

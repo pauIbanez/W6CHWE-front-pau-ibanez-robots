@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
@@ -66,14 +66,14 @@ const AllRobotsPage = () => {
 
   const blankFilter = {
     query: "",
-    tags: "",
+    tags: [],
   };
 
   const [filterData, setFilterData] = useState(blankFilter);
   const [robotsToRender, setRobotsToRender] = useState([]);
   const [filteredRobots, setFilteredRobots] = useState([]);
 
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     if (filterData.query) {
       setFilteredRobots(
         robots.filter((robot) => {
@@ -100,10 +100,17 @@ const AllRobotsPage = () => {
     } else {
       setFilteredRobots([...robots]);
     }
-  };
+  }, [filterData.query, robots]);
+
   useEffect(() => {
     setFilteredRobots([...robots]);
   }, [robots]);
+
+  useEffect(() => {
+    if (filterData.query === "") {
+      applyFilters();
+    }
+  }, [applyFilters, filterData.query]);
 
   useEffect(() => {
     setRobotsToRender(
