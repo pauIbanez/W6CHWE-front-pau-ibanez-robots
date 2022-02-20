@@ -60,7 +60,7 @@ const Navigation = ({ current }) => {
         <NavItem to="/all" current={current} index={2}>
           All Robots
         </NavItem>
-        <NavItem to="/robot/new" current={current} index={2}>
+        <NavItem to="/robot/new" current={current} index={3}>
           Upload a Robot!
         </NavItem>
       </NavHolder>
