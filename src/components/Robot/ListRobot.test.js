@@ -1,7 +1,15 @@
 /* eslint-disable testing-library/no-node-access */
 import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { renderInBocata } from "../../setupTests";
 import ListRobot from "./ListRobot";
+
+const mockNavigate = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockNavigate,
+}));
 
 describe("Given ListRobot", () => {
   describe("When it's instanciated with a robot", () => {
@@ -109,6 +117,26 @@ describe("Given ListRobot", () => {
 
       expect(realTag).toBeInTheDocument();
       expect(ttTag).toBeInTheDocument();
+    });
+  });
+
+  describe("When it's instanciated and clicked", () => {
+    test("Then it should call navigate with the robot's id", () => {
+      const robot = {
+        id: "3",
+        name: "testing bot",
+        universe: "Jest",
+        description: "This bot ensures my code is nisuuu",
+        tags: [],
+        createdAt: "2022-02-20T19:46:11.056+00:00",
+      };
+
+      renderInBocata(<ListRobot robot={robot} />);
+
+      const image = screen.getByRole("img");
+      userEvent.click(image);
+
+      expect(mockNavigate).toHaveBeenCalledWith("/robot/3");
     });
   });
 });
