@@ -67,10 +67,7 @@ const ImagePlaceHolder = styled.div`
   border: 2px dashed gray;
   width: 350px;
   height: 360px;
-  display: ${(props) => {
-    console.log(props.show);
-    return props.show ? "flex" : "none";
-  }};
+  display: ${(props) => (props.show ? "flex" : "none")};
   justify-content: center;
   align-items: center;
   color: #696969;
@@ -343,12 +340,10 @@ const RobotForm = ({ formData, setFormData, onSubmit, editing = false }) => {
                 onError={(event) => {
                   event.target.style.display = "none";
                   setImageBackground(true);
-                  console.log("error");
                 }}
                 onLoad={(event) => {
                   event.target.style.display = "block";
                   setImageBackground(false);
-                  console.log("loaded");
                 }}
               />
               <ImagePlaceHolder show={showingBackground}>

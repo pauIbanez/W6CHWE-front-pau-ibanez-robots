@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Header from "../components/Header/Header";
 import apiContext from "../contexts/apiContext";
 import {
-  deleteRobotApiHandler,
+  getDeleteRobotApiHandler,
   getRobotApiHandler,
 } from "../utils/apiResultsHandlers";
 import NotFoundPage from "./NotFoundPage";
@@ -171,7 +171,7 @@ const RobotDetailsPage = () => {
     event.stopPropagation();
     robotAPI.deleteBody(
       `${robotAPI.endpoints.delete}/${robotId}?token=${token}`,
-      deleteRobotApiHandler(dispatch, robotId)
+      getDeleteRobotApiHandler(dispatch, robotId)
     );
     navigate("/home");
   };

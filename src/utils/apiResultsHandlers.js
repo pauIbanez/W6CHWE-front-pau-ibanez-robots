@@ -23,13 +23,13 @@ export const getRobotApiHandler = (dispatch) => (result) => {
   }
 };
 
-export const deleteRobotApiHandler = (dispatch, id) => (result) => {
+export const getDeleteRobotApiHandler = (dispatch, id) => (result) => {
   if (result.ok) {
     dispatch(deleteRobotAction(id));
   }
 };
 
-export const replaceRobotApiHandler = (dispatch) => (result) => {
+export const getReplaceRobotApiHandler = (dispatch) => (result) => {
   if (result.response.ok) {
     dispatch(replaceRobotAction(result.body));
   }

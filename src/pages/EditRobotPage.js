@@ -7,7 +7,7 @@ import RobotForm from "../components/RobotForm/RobotForm";
 import apiContext from "../contexts/apiContext";
 import {
   getRobotApiHandler,
-  replaceRobotApiHandler,
+  getReplaceRobotApiHandler,
 } from "../utils/apiResultsHandlers";
 import NotFoundPage from "./NotFoundPage";
 
@@ -61,7 +61,7 @@ const EditRobotPage = () => {
     event.preventDefault();
     robotAPI.put(
       `${robotAPI.endpoints.update}?token=${token}`,
-      replaceRobotApiHandler(dispatch),
+      getReplaceRobotApiHandler(dispatch),
       {
         body: formData,
       }
