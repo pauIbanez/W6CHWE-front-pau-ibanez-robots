@@ -63,10 +63,11 @@ const Tag = styled.p`
 
 const InfoItem = styled.p`
   overflow-y: scroll;
-  background-color: #0e0e0e;
-  border-radius: 10px;
-  padding: 7px;
+  margin: 0;
+
+  padding: 0;
   width: fit-content;
+  padding-bottom: 10px;
 
   -ms-overflow-style: none;
   scrollbar-width: none;

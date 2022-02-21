@@ -151,6 +151,12 @@ const SubmitButton = styled.button`
   background-color: #f8f9fb;
   border: 1px solid gray;
   border-radius: 50px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #696969;
+    color: white;
+  }
 `;
 
 const FormRow = styled.div`
