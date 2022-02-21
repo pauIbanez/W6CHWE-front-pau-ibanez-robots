@@ -55,7 +55,7 @@ const UserMenu = styled.div`
   gap: 20px;
 `;
 
-const UserControll = styled.button`
+const UserControll = styled(Link)`
   height: 40px;
   width: 100px;
   border-radius: 10px;
@@ -63,9 +63,10 @@ const UserControll = styled.button`
   background-color: purple;
   font-family: inherit;
   color: white;
-  diaply: flex;
+  text-decoration: none;
+  display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
 
   &:hover {
     cursor: pointer;
@@ -105,9 +106,9 @@ const Navigation = ({ current }) => {
     }
     return (
       <>
-        <UserControll> Login </UserControll>
+        <UserControll to="/users/login"> Login </UserControll>
         <Or>or</Or>
-        <UserControll> Register </UserControll>
+        <UserControll to="/users/register"> Register </UserControll>
       </>
     );
   };
