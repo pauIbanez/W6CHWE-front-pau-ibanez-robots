@@ -79,7 +79,7 @@ const InfoItem = styled.p`
 
 const CreationDate = styled.p`
   margin: 0;
-  color: #696969;
+  color: #a7a7a7;
 `;
 
 const ListRobot = ({ robot, flip = false }) => {

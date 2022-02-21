@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header/Header";
 import RobotForm from "../components/RobotForm/RobotForm";
@@ -24,6 +25,7 @@ const NewRobotPage = () => {
   };
   const { robotAPI, token } = useContext(apiContext);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState(blankForm);
 
@@ -36,6 +38,7 @@ const NewRobotPage = () => {
         body: formData,
       }
     );
+    navigate("/home");
   };
 
   return (
