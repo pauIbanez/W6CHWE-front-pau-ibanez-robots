@@ -4,7 +4,7 @@ import EditRobotPage from "./pages/EditRobotPage";
 import MainPage from "./pages/MainPage";
 import NewRobotPage from "./pages/NewRobotPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import RobotDetailsPage from "./pages/RobotDeatailsPage";
+import RobotDetailsPage from "./pages/RobotDetailsPage";
 
 function App() {
   return (
