@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Header from "../components/Header/Header";
+import RegisterForm from "../components/RegisterForm/RegisterForm";
 
 const FormHolder = styled.div`
   padding: 100px;
@@ -10,18 +11,12 @@ const RegisterPage = () => {
     description: "Fill the form bellow to create your own user",
   };
 
-  const blankForm = {
-    name: "",
-    lastName: "",
-    avatar: "",
-    username: "",
-    password: "",
-  };
-
   return (
     <>
       <Header current={4} texts={headerTexts} />
-      <FormHolder></FormHolder>
+      <FormHolder>
+        <RegisterForm />
+      </FormHolder>
     </>
   );
 };

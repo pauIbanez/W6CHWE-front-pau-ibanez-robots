@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
@@ -183,10 +183,6 @@ const RobotForm = ({ formData, setFormData, onSubmit, editing = false }) => {
     }
     setFormData(newFormData);
   };
-
-  useEffect(() => {
-    localImageUrl.current = formData.image;
-  }, [formData.image]);
 
   const assesTag = (event) => {
     event.target.blur();
