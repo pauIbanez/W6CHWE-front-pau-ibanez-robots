@@ -203,7 +203,7 @@ const RobotDetailsPage = () => {
           <TagHolder>{tags}</TagHolder>
         </Details>
         <Controls>
-          <ControllButton onClick={gotoEdit}> Edit Robot</ControllButton>
+          <ControllButton onClick={gotoEdit}>Edit Robot</ControllButton>
           <ControllButton delete={true} onClick={togglePopup}>
             Delete Robot
           </ControllButton>

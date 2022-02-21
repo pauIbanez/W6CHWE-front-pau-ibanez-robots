@@ -67,6 +67,7 @@ describe("Given EditRobotPage", () => {
           id: "1",
           name: "asdas",
           description: "",
+          image: "",
           universe: "",
           tags: ["real", "humanoid", "popular"],
         },
