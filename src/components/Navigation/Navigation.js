@@ -21,18 +21,18 @@ const NavHolder = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  padding-right: 50px;
+  gap: 50px;
 `;
 
 const NavProto = styled(Link)`
   color: white;
   text-decoration: none;
-  min-width: 200px;
-  padding: 0 20px;
+  width: 110px;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100px;
+  font-size: 13px;
   &:hover {
     border-bottom: 2px solid white;
     font-weight: 600;
@@ -44,6 +44,38 @@ const NavItem = styled(NavProto)`
     current === index
       ? "border-bottom: 2px solid white; font-weight: 600;"
       : ""}
+`;
+
+const UserMenu = styled.div`
+  width: 300px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+`;
+
+const UserControll = styled.button`
+  height: 40px;
+  width: 100px;
+  border-radius: 10px;
+  border: none;
+  background-color: purple;
+  font-family: inherit;
+  color: white;
+  diaply: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #c044be;
+  }
+`;
+
+const Or = styled.p`
+  margin: 0;
+  color: white;
+  display: flex;
+  align-items: center;
 `;
 
 const Navigation = ({ current }) => {
@@ -65,6 +97,11 @@ const Navigation = ({ current }) => {
         <NavItem to="/robot/new" current={current} index={3}>
           Upload a Robot!
         </NavItem>
+        <UserMenu>
+          <UserControll> Login </UserControll>
+          <Or>or</Or>
+          <UserControll> Register </UserControll>
+        </UserMenu>
       </NavHolder>
     </NavMenu>
   );

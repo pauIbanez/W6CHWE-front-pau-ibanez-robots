@@ -25,6 +25,10 @@ const HeaderInfo = styled.div`
   color: white;
 `;
 
+const Title = styled.h1`
+  color: white;
+`;
+
 const Header = ({ current, texts = null, video = false }) => {
   return (
     <header>
@@ -35,7 +39,7 @@ const Header = ({ current, texts = null, video = false }) => {
         </Video>
       )}
       <HeaderInfo video={video}>
-        <h1>{texts ? texts.title : "Robots!"}</h1>
+        <Title>{texts ? texts.title : "Robots!"}</Title>
         <p>
           {texts
             ? texts.description
