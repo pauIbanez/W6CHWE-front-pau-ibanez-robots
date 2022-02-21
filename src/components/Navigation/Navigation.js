@@ -93,6 +93,25 @@ const Avatar = styled.img`
 
 const Navigation = ({ current }) => {
   const { user } = useContext(userContext);
+
+  const getUserPannel = () => {
+    if (Object.keys(user).length !== 0) {
+      return (
+        <>
+          <Username>{user.username}</Username>
+          <Avatar src={user.avatar} height="60" width="60"></Avatar>
+        </>
+      );
+    }
+    return (
+      <>
+        <UserControll> Login </UserControll>
+        <Or>or</Or>
+        <UserControll> Register </UserControll>
+      </>
+    );
+  };
+
   return (
     <NavMenu>
       <NavLogo
@@ -111,20 +130,7 @@ const Navigation = ({ current }) => {
         <NavItem to="/robot/new" current={current} index={3}>
           Upload a Robot!
         </NavItem>
-        <UserMenu>
-          {!user ? (
-            <>
-              <UserControll> Login </UserControll>
-              <Or>or</Or>
-              <UserControll> Register </UserControll>
-            </>
-          ) : (
-            <>
-              <Username>{user.username}</Username>
-              <Avatar src={user.avatar} height="60" width="60"></Avatar>
-            </>
-          )}
-        </UserMenu>
+        <UserMenu>{getUserPannel()}</UserMenu>
       </NavHolder>
     </NavMenu>
   );
