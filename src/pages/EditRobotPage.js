@@ -41,6 +41,7 @@ const EditRobotPage = () => {
 
   useEffect(() => {
     if (robotAPI.ready && !foundRobot) {
+      console.log(robotAPI.endpoints.robots);
       robotAPI.getBody(
         `${robotAPI.endpoints.robots}/${robotId}`,
         getRobotApiHandler(dispatch)

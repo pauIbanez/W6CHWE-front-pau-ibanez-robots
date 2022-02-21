@@ -142,10 +142,7 @@ const RobotDetailsPage = () => {
   const robotId = window.location.pathname.split("/")[2];
   const foundRobot = robots.find((robot) => robot.id === robotId);
   const loading = useRef(true);
-  const timeOutInRenders = useRef(0);
   const [activePopup, setActivePopup] = useState(false);
-
-  timeOutInRenders.current += 1;
 
   useEffect(() => {
     if (robotAPI.ready && !foundRobot) {
@@ -160,9 +157,7 @@ const RobotDetailsPage = () => {
     title: "Robot details",
     description: "Learn all about your favourite robot!",
   };
-  if (loading.current && timeOutInRenders.current === 4) {
-    loading.current = false;
-  }
+
   const togglePopup = () => {
     setActivePopup(!activePopup);
   };
@@ -227,8 +222,6 @@ const RobotDetailsPage = () => {
         </AlertContainer>
       </>
     );
-  } else if (loading.current) {
-    return <h1>LOADING</h1>;
   } else {
     return <NotFoundPage />;
   }
