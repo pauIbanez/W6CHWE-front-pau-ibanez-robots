@@ -13,7 +13,7 @@ const Video = styled.video`
 const HeaderInfo = styled.div`
   ${(props) =>
     props.video
-      ? "position: aboslute; margin-top: 600px;"
+      ? "position: aboslute; margin-top: 700px;"
       : "margin-top: 50px;"}
   background-color: #252525;
   height: 400px;
