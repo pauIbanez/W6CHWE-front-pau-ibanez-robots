@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import apiContext from "../contexts/apiContext";
 import { renderInBocata } from "../setupTests";
-import RobotDetailsPage from "./RobotDeatailsPage";
+import RobotDetailsPage from "./RobotDetailsPage";
 import * as redux from "react-redux";
 import userEvent from "@testing-library/user-event";
 
