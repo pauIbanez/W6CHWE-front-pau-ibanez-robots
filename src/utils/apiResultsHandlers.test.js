@@ -1,5 +1,6 @@
 import actionTypes from "../redux/actions/actionTypes";
 import {
+  deleteRobotApiHandler,
   getAllRobotsApiHandler,
   getCreateRobotApiHandler,
   getRobotApiHandler,
@@ -141,6 +142,45 @@ describe("Given getRobotApiHandler", () => {
       };
 
       const resultHandler = getRobotApiHandler(mockDispatch);
+      resultHandler(result);
+
+      expect(mockDispatch).not.toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given deleteRobotApiHandler", () => {
+  describe("When it's invoked with a dispatch, an id and a result", () => {
+    test("Then it should call dispatch with a deleteRobotAction with the id", () => {
+      const mockDispatch = jest.fn();
+      const id = 1;
+
+      const result = {
+        ok: true,
+        body: {},
+      };
+
+      const expectedAction = {
+        type: actionTypes.deleteRobot,
+        id,
+      };
+
+      const resultHandler = deleteRobotApiHandler(mockDispatch, id);
+      resultHandler(result);
+
+      expect(mockDispatch).toHaveBeenCalledWith(expectedAction);
+    });
+  });
+
+  describe("When it's invoked with a dispatch and a result as not ok", () => {
+    test("Then it should not call dispatch", () => {
+      const mockDispatch = jest.fn();
+
+      const result = {
+        ok: false,
+      };
+
+      const resultHandler = deleteRobotApiHandler(mockDispatch);
       resultHandler(result);
 
       expect(mockDispatch).not.toHaveBeenCalled();
