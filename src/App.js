@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import AllRobotsPage from "./pages/AllRobotsPage";
+import EditRobotPage from "./pages/EditRobotPage";
 import MainPage from "./pages/MainPage";
 import NewRobotPage from "./pages/NewRobotPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -12,8 +13,12 @@ function App() {
 
       <Route path="/home" element={<MainPage />} />
       <Route path="/all" element={<AllRobotsPage />} />
-      <Route path="/robot/new" element={<NewRobotPage />} />
-      <Route path="/robot/:id" element={<RobotDetailsPage />} />
+
+      <Route path="/robot">
+        <Route path="new" element={<NewRobotPage />} />
+        <Route path="edit/:id" element={<EditRobotPage />} />
+        <Route path=":id" element={<RobotDetailsPage />} />
+      </Route>
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

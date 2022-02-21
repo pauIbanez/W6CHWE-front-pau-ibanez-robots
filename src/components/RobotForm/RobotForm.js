@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
@@ -67,7 +67,10 @@ const ImagePlaceHolder = styled.div`
   border: 2px dashed gray;
   width: 350px;
   height: 360px;
-  display: flex;
+  display: ${(props) => {
+    console.log(props.show);
+    return props.show ? "flex" : "none";
+  }};
   justify-content: center;
   align-items: center;
   color: #696969;
@@ -77,6 +80,7 @@ const Image = styled.img`
   position: absolute;
   top: 0;
   left: 0;
+  object-fit: contain;
 `;
 
 const TagsSelector = styled.select`
@@ -170,7 +174,7 @@ const ForemCol = styled.div`
   gap: 50px;
 `;
 
-const RobotForm = ({ formData, setFormData, onSubmit }) => {
+const RobotForm = ({ formData, setFormData, onSubmit, editing = false }) => {
   const localImageUrl = useRef(formData.image);
   const updateData = (event) => {
     const newFormData = {
@@ -182,6 +186,10 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
     }
     setFormData(newFormData);
   };
+
+  useEffect(() => {
+    localImageUrl.current = formData.image;
+  }, [formData.image]);
 
   const assesTag = (event) => {
     event.target.blur();
@@ -229,6 +237,11 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
         );
       }
     });
+  };
+  const [showingBackground, setShowingBackground] = useState(true);
+
+  const setImageBackground = (mode) => {
+    setShowingBackground(mode);
   };
 
   const tagsToRender = formData.tags.map((tag) => (
@@ -321,18 +334,26 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
             </InputThingy>
             <ImageHolder>
               <Image
-                src={localImageUrl.current}
+                src={
+                  localImageUrl.current ? localImageUrl.current : formData.image
+                }
                 alt="Robot"
                 height="360"
                 width="350"
                 onError={(event) => {
                   event.target.style.display = "none";
+                  setImageBackground(true);
+                  console.log("error");
                 }}
                 onLoad={(event) => {
                   event.target.style.display = "block";
+                  setImageBackground(false);
+                  console.log("loaded");
                 }}
               />
-              <ImagePlaceHolder>Input a valid image</ImagePlaceHolder>
+              <ImagePlaceHolder show={showingBackground}>
+                Input a valid image
+              </ImagePlaceHolder>
             </ImageHolder>
           </ForemCol>
 
@@ -361,7 +382,7 @@ const RobotForm = ({ formData, setFormData, onSubmit }) => {
           </ForemCol>
         </FormRow>
         <FormFinal>
-          <SubmitButton> Create! </SubmitButton>
+          <SubmitButton> {editing ? "Update!" : "Create!"} </SubmitButton>
         </FormFinal>
       </Form>
     </>

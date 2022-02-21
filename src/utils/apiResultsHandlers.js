@@ -28,3 +28,9 @@ export const deleteRobotApiHandler = (dispatch, id) => (result) => {
     dispatch(deleteRobotAction(id));
   }
 };
+
+export const replaceRobotApiHandler = (dispatch) => (result) => {
+  if (result.response.ok) {
+    dispatch(replaceRobotAction(result.body));
+  }
+};

@@ -176,6 +176,10 @@ const RobotDetailsPage = () => {
     navigate("/home");
   };
 
+  const gotoEdit = () => {
+    window.location.href = "/robot/edit/" + robotId;
+  };
+
   if (foundRobot) {
     loading.current = false;
     const tags = foundRobot.tags.map((tag) => (
@@ -204,7 +208,7 @@ const RobotDetailsPage = () => {
           <TagHolder>{tags}</TagHolder>
         </Details>
         <Controls>
-          <ControllButton> Edit Robot</ControllButton>
+          <ControllButton onClick={gotoEdit}> Edit Robot</ControllButton>
           <ControllButton delete={true} onClick={togglePopup}>
             Delete Robot
           </ControllButton>
