@@ -26,9 +26,6 @@ const EditRobotPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loading = useRef(true);
-  const timeOutInRenders = useRef(0);
-
-  timeOutInRenders.current += 1;
 
   const foundRobot = robots.find((robot) => robot.id === robotId);
 
@@ -70,10 +67,6 @@ const EditRobotPage = () => {
     navigate("/home");
   };
 
-  if (loading.current && timeOutInRenders.current === 4) {
-    loading.current = false;
-  }
-
   if (foundRobot) {
     loading.current = false;
 
@@ -90,8 +83,6 @@ const EditRobotPage = () => {
         </FormHolder>
       </>
     );
-  } else if (loading.current) {
-    return <h1>LOADING</h1>;
   } else {
     return <NotFoundPage />;
   }

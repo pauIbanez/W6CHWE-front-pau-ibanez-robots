@@ -278,6 +278,8 @@ const RobotForm = ({ formData, setFormData, onSubmit, editing = false }) => {
       case "life-like":
         bans = ["spaceCraft"];
         break;
+      default:
+        bans = [];
     }
 
     return bans;
