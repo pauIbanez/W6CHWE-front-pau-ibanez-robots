@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import propTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const RobotHolder = styled.li`
   position: relative;
@@ -13,6 +14,10 @@ const RobotHolder = styled.li`
   background-color: #252525;
   color: white;
   border-radius: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const RobotImage = styled.img`
@@ -80,6 +85,7 @@ const ListRobot = ({ robot, flip = false }) => {
   const tagsToRender = robot.tags.map((tag) => (
     <Tag key={tag}>{tag[0].toUpperCase() + tag.substring(1)}</Tag>
   ));
+  const navigate = useNavigate();
 
   const date = new Date(robot.createdAt.toString()).toLocaleString();
 
@@ -98,8 +104,13 @@ const ListRobot = ({ robot, flip = false }) => {
   const RobotImageComp = () => (
     <RobotImage src={robot.image} alt="Robot Image" height="360" width="350" />
   );
+
+  const goToRobot = () => {
+    navigate(`/robot/${robot.id}`);
+  };
+
   return (
-    <RobotHolder>
+    <RobotHolder onClick={goToRobot}>
       {flip ? (
         <>
           <RobotInfoComp />

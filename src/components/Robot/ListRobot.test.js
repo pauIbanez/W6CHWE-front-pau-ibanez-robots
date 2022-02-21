@@ -1,5 +1,6 @@
 /* eslint-disable testing-library/no-node-access */
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import { renderInBocata } from "../../setupTests";
 import ListRobot from "./ListRobot";
 
 describe("Given ListRobot", () => {
@@ -13,7 +14,7 @@ describe("Given ListRobot", () => {
         createdAt: "2022-02-20T19:46:11.056+00:00",
       };
 
-      render(<ListRobot robot={robot} />);
+      renderInBocata(<ListRobot robot={robot} />);
 
       const name = screen.getByText(robot.name);
       const universe = screen.getByText(robot.universe);
@@ -35,7 +36,7 @@ describe("Given ListRobot", () => {
         createdAt: "2022-02-20T19:46:11.056+00:00",
       };
 
-      render(<ListRobot robot={robot} />);
+      renderInBocata(<ListRobot robot={robot} />);
 
       const robotElement = screen.getByRole("listitem");
       const robotInfo = screen.getByTestId("robotinfo");
@@ -56,7 +57,7 @@ describe("Given ListRobot", () => {
         createdAt: "2022-02-20T19:46:11.056+00:00",
       };
 
-      render(<ListRobot robot={robot} flip={true} />);
+      renderInBocata(<ListRobot robot={robot} flip={true} />);
 
       const robotElement = screen.getByRole("listitem");
       const robotInfo = screen.getByTestId("robotinfo");
@@ -79,7 +80,7 @@ describe("Given ListRobot", () => {
 
       const expectedTags = ["Real", "Un tt de metal"];
 
-      render(<ListRobot robot={robot} flip={true} />);
+      renderInBocata(<ListRobot robot={robot} flip={true} />);
 
       const realTag = screen.getByText(expectedTags[0]);
       const ttTag = screen.getByText(expectedTags[1]);
@@ -101,7 +102,7 @@ describe("Given ListRobot", () => {
 
       const expectedTags = ["Real", "Un tt de metal"];
 
-      render(<ListRobot robot={robot} flip={true} />);
+      renderInBocata(<ListRobot robot={robot} flip={true} />);
 
       const realTag = screen.getByText(expectedTags[0]);
       const ttTag = screen.getByText(expectedTags[1]);

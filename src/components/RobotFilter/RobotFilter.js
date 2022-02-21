@@ -61,7 +61,6 @@ const RobotFilter = ({ filterData, setFilterData, applyFilters }) => {
 RobotFilter.propTypes = {
   filterData: PropTypes.shape({
     query: PropTypes.string.isRequired,
-    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   setFilterData: PropTypes.func.isRequired,
   applyFilters: PropTypes.func.isRequired,
