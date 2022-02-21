@@ -1,6 +1,15 @@
 /* eslint-disable testing-library/no-node-access */
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { renderInBocata } from "../../setupTests";
 import ListRobot from "./ListRobot";
+
+const mockNavigate = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockNavigate,
+}));
 
 describe("Given ListRobot", () => {
   describe("When it's instanciated with a robot", () => {
@@ -13,7 +22,7 @@ describe("Given ListRobot", () => {
         createdAt: "2022-02-20T19:46:11.056+00:00",
       };
 
-      render(<ListRobot robot={robot} />);
+      renderInBocata(<ListRobot robot={robot} />);
 
       const name = screen.getByText(robot.name);
       const universe = screen.getByText(robot.universe);
@@ -35,7 +44,7 @@ describe("Given ListRobot", () => {
         createdAt: "2022-02-20T19:46:11.056+00:00",
       };
 
-      render(<ListRobot robot={robot} />);
+      renderInBocata(<ListRobot robot={robot} />);
 
       const robotElement = screen.getByRole("listitem");
       const robotInfo = screen.getByTestId("robotinfo");
@@ -56,7 +65,7 @@ describe("Given ListRobot", () => {
         createdAt: "2022-02-20T19:46:11.056+00:00",
       };
 
-      render(<ListRobot robot={robot} flip={true} />);
+      renderInBocata(<ListRobot robot={robot} flip={true} />);
 
       const robotElement = screen.getByRole("listitem");
       const robotInfo = screen.getByTestId("robotinfo");
@@ -79,7 +88,7 @@ describe("Given ListRobot", () => {
 
       const expectedTags = ["Real", "Un tt de metal"];
 
-      render(<ListRobot robot={robot} flip={true} />);
+      renderInBocata(<ListRobot robot={robot} flip={true} />);
 
       const realTag = screen.getByText(expectedTags[0]);
       const ttTag = screen.getByText(expectedTags[1]);
@@ -101,13 +110,33 @@ describe("Given ListRobot", () => {
 
       const expectedTags = ["Real", "Un tt de metal"];
 
-      render(<ListRobot robot={robot} flip={true} />);
+      renderInBocata(<ListRobot robot={robot} flip={true} />);
 
       const realTag = screen.getByText(expectedTags[0]);
       const ttTag = screen.getByText(expectedTags[1]);
 
       expect(realTag).toBeInTheDocument();
       expect(ttTag).toBeInTheDocument();
+    });
+  });
+
+  describe("When it's instanciated and clicked", () => {
+    test("Then it should call navigate with the robot's id", () => {
+      const robot = {
+        id: "3",
+        name: "testing bot",
+        universe: "Jest",
+        description: "This bot ensures my code is nisuuu",
+        tags: [],
+        createdAt: "2022-02-20T19:46:11.056+00:00",
+      };
+
+      renderInBocata(<ListRobot robot={robot} />);
+
+      const image = screen.getByRole("img");
+      userEvent.click(image);
+
+      expect(mockNavigate).toHaveBeenCalledWith("/robot/3");
     });
   });
 });

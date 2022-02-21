@@ -13,9 +13,13 @@ const robotsReducer = (currentRobots = [], action = {}) => {
       break;
 
     case actionTypes.replaceRobot:
-      newRrobots = currentRobots.map((robot) =>
-        robot.id === action.robot.id ? action.robot : robot
-      );
+      if (currentRobots.find(({ id }) => id === action.robot.id)) {
+        newRrobots = currentRobots.map((robot) =>
+          robot.id === action.robot.id ? action.robot : robot
+        );
+      } else {
+        newRrobots = [...currentRobots, action.robot];
+      }
       break;
 
     case actionTypes.deleteRobot:

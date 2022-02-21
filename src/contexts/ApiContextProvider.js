@@ -8,6 +8,8 @@ const log = [];
 const endpoints = {
   robots: "robots",
   create: "robots/create",
+  delete: "robots/delete",
+  update: "robots/update",
   token: "token",
 };
 

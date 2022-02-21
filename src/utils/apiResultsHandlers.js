@@ -1,6 +1,8 @@
 import {
   addRobotAction,
+  deleteRobotAction,
   loadRobotsAction,
+  replaceRobotAction,
 } from "../redux/actions/actionCreators";
 
 export const getAllRobotsApiHandler = (dispatch) => (result) => {
@@ -12,5 +14,23 @@ export const getAllRobotsApiHandler = (dispatch) => (result) => {
 export const getCreateRobotApiHandler = (dispatch) => (result) => {
   if (result.ok) {
     dispatch(addRobotAction(result.body));
+  }
+};
+
+export const getRobotApiHandler = (dispatch) => (result) => {
+  if (result.ok) {
+    dispatch(replaceRobotAction(result.body));
+  }
+};
+
+export const getDeleteRobotApiHandler = (dispatch, id) => (result) => {
+  if (result.ok) {
+    dispatch(deleteRobotAction(id));
+  }
+};
+
+export const getReplaceRobotApiHandler = (dispatch) => (result) => {
+  if (result.response.ok) {
+    dispatch(replaceRobotAction(result.body));
   }
 };

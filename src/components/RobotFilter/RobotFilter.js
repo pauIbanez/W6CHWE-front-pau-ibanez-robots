@@ -24,7 +24,12 @@ const SearchButton = styled.button`
   background-color: #f8f9fb;
   border: 1px solid gray;
   border-radius: 50px;
-  cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #696969;
+    color: white;
+  }
 `;
 
 const FilterForm = styled.form`
@@ -61,7 +66,6 @@ const RobotFilter = ({ filterData, setFilterData, applyFilters }) => {
 RobotFilter.propTypes = {
   filterData: PropTypes.shape({
     query: PropTypes.string.isRequired,
-    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   setFilterData: PropTypes.func.isRequired,
   applyFilters: PropTypes.func.isRequired,
