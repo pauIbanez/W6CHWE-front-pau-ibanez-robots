@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import userContext from "../../contexts/userContext";
+import { useContext } from "react";
 
 const NavMenu = styled.nav`
   width: 100%;
@@ -21,20 +23,20 @@ const NavHolder = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  gap: 50px;
 `;
 
 const NavProto = styled(Link)`
   color: white;
   text-decoration: none;
-  width: 110px;
+  width: 170px;
   display: flex;
+  padding: 0 30px;
   justify-content: center;
   align-items: center;
   height: 100px;
   font-size: 13px;
   &:hover {
-    border-bottom: 2px solid white;
+    border-bottom: 3px solid purple;
     font-weight: 600;
   }
 `;
@@ -42,7 +44,7 @@ const NavProto = styled(Link)`
 const NavItem = styled(NavProto)`
   ${({ current, index }) =>
     current === index
-      ? "border-bottom: 2px solid white; font-weight: 600;"
+      ? "border-bottom: 3px solid purple; font-weight: 600;"
       : ""}
 `;
 
@@ -63,7 +65,7 @@ const UserControll = styled.button`
   color: white;
   diaply: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 
   &:hover {
     cursor: pointer;
@@ -78,7 +80,19 @@ const Or = styled.p`
   align-items: center;
 `;
 
+const Username = styled.p`
+  color: white;
+  display: flex;
+  align-items: center;
+`;
+
+const Avatar = styled.img`
+  border-radius: 50%;
+  border: 2px solid purple;
+`;
+
 const Navigation = ({ current }) => {
+  const { user } = useContext(userContext);
   return (
     <NavMenu>
       <NavLogo
@@ -98,9 +112,18 @@ const Navigation = ({ current }) => {
           Upload a Robot!
         </NavItem>
         <UserMenu>
-          <UserControll> Login </UserControll>
-          <Or>or</Or>
-          <UserControll> Register </UserControll>
+          {!user ? (
+            <>
+              <UserControll> Login </UserControll>
+              <Or>or</Or>
+              <UserControll> Register </UserControll>
+            </>
+          ) : (
+            <>
+              <Username>{user.username}</Username>
+              <Avatar src={user.avatar} height="60" width="60"></Avatar>
+            </>
+          )}
         </UserMenu>
       </NavHolder>
     </NavMenu>
