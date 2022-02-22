@@ -43,3 +43,11 @@ export const getRegisterUserApiHandler =
       setInvalidField(result.body.message);
     }
   };
+
+export const getActivateUserApiHandler = (callback) => (result) => {
+  if (result.ok) {
+    callback(true);
+    return;
+  }
+  callback(false);
+};
