@@ -10,7 +10,7 @@ const endpoints = {
   create: "robots/create",
   delete: "robots/delete",
   update: "robots/update",
-  token: "token",
+  register: "users/register",
 };
 
 const ApiContextProvider = ({ children }) => {

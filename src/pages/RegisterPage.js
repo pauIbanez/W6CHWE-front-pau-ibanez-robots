@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import Header from "../components/Header/Header";
 import RegisterForm from "../components/RegisterForm/RegisterForm";
@@ -11,12 +12,26 @@ const RegisterPage = () => {
     description: "Fill the form bellow to create your own user",
   };
 
+  const [compleated, setCompleated] = useState(false);
+  const [email, setEmail] = useState("");
+  const allGood = (email) => {
+    setCompleated(true);
+    setEmail(email);
+  };
+
   return (
     <>
       <Header current={4} texts={headerTexts} />
-      <FormHolder>
-        <RegisterForm />
-      </FormHolder>
+      {!compleated ? (
+        <FormHolder>
+          <RegisterForm allGood={allGood} />
+        </FormHolder>
+      ) : (
+        <h1>
+          Nice, your information has been submitted. To use this user you need
+          to verify your email, please check your inbox at {email}
+        </h1>
+      )}
     </>
   );
 };

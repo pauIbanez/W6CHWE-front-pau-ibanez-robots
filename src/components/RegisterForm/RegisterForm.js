@@ -1,7 +1,10 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useContext } from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import apiContext from "../../contexts/apiContext";
+import { getRegisterUserApiHandler } from "../../utils/apiResultsHandlers";
 
 const spacing = 200;
 const avatarSize = 150;
@@ -131,7 +134,7 @@ const ImageRow = styled.div`
   gap: ${spacing}px;
 `;
 
-const RegisterForm = () => {
+const RegisterForm = ({ allGood }) => {
   const blankForm = {
     name: "",
     lastName: "",
@@ -149,9 +152,21 @@ const RegisterForm = () => {
 
   const [formData, setFormData] = useState(blankForm);
   const [wrongData, setWrongData] = useState(baseWrongData);
+  const { robotAPI } = useContext(apiContext);
+  const [isRepeatPasswordWrong, setIsRepeatPasswordWrong] = useState(false);
+
+  const checkPassword = (event) => {
+    const password = formData.password;
+    const repeatPassword = event.target.value;
+
+    if (password !== repeatPassword) {
+      setIsRepeatPasswordWrong(true);
+    } else {
+      setIsRepeatPasswordWrong(false);
+    }
+  };
 
   const [localImageUrl, setLocalImageUrl] = useState(formData.avatar);
-
   const [showingBackground, setShowingBackground] = useState(true);
 
   const setImageBackground = (mode) => {
@@ -160,6 +175,28 @@ const RegisterForm = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    if (isRepeatPasswordWrong) {
+      return;
+    }
+    robotAPI.postResponse(
+      robotAPI.endpoints.register,
+      getRegisterUserApiHandler(duplicatedData, allGood, formData.email),
+      {
+        body: formData,
+      }
+    );
+  };
+
+  const duplicatedData = (wrongDataField) => {
+    const newWrongData = { ...baseWrongData };
+
+    const badFields = wrongDataField.split(" ");
+
+    badFields.forEach((field) => {
+      newWrongData[field] = true;
+    });
+
+    setWrongData(newWrongData);
   };
 
   const updateData = (event) => {
@@ -172,19 +209,6 @@ const RegisterForm = () => {
     }
 
     setFormData(newFormData);
-  };
-
-  const [isRepeatPasswordWrong, setIsRepeatPasswordWrong] = useState(false);
-
-  const checkPassword = (event) => {
-    const password = formData.password;
-    const repeatPassword = event.target.value;
-
-    if (password !== repeatPassword) {
-      setIsRepeatPasswordWrong(true);
-    } else {
-      setIsRepeatPasswordWrong(false);
-    }
   };
 
   return (
@@ -222,7 +246,7 @@ const RegisterForm = () => {
             <InputName htmlFor="email">Email</InputName>
             <InputBocata>
               <TextInput
-                type="text"
+                type="email"
                 name="email"
                 id="email"
                 value={formData.email}

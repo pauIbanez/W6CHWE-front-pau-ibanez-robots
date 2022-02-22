@@ -34,3 +34,12 @@ export const getReplaceRobotApiHandler = (dispatch) => (result) => {
     dispatch(replaceRobotAction(result.body));
   }
 };
+
+export const getRegisterUserApiHandler =
+  (setInvalidField, allGood, email) => (result) => {
+    if (result.ok) {
+      allGood(email);
+    } else if (result.body.code === 409) {
+      setInvalidField(result.body.message);
+    }
+  };
