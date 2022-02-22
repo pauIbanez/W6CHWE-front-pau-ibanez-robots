@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import ListRobot from "../components/Robot/ListRobot";
 import apiContext from "../contexts/apiContext";
@@ -40,11 +41,6 @@ const SectionList = styled.ul`
   gap: 20px;
 `;
 
-const Footer = styled.footer`
-  height: 300px;
-  background-color: #252525;
-`;
-
 const MainPage = () => {
   const dispatch = useDispatch();
   const { robotAPI } = useContext(apiContext);
@@ -80,9 +76,7 @@ const MainPage = () => {
           <SectionList>{robotsToRender}</SectionList>
         </PopularRobots>
       </MainSection>
-      <Footer>
-        <h2>Footer here</h2>
-      </Footer>
+      <Footer />
     </>
   );
 };
