@@ -13,6 +13,7 @@ const endpoints = {
   register: "users/register",
   activate: "users/activate/",
   login: "users/login",
+  userData: "users/user",
 };
 
 const ApiContextProvider = ({ children }) => {
@@ -32,7 +33,6 @@ const ApiContextProvider = ({ children }) => {
 
   const contextValue = {
     robotAPI,
-    // endpoints: endpoints.current,
   };
   return (
     <apiContext.Provider value={contextValue}>{children}</apiContext.Provider>

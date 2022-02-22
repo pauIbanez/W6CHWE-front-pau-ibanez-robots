@@ -97,7 +97,7 @@ const Navigation = ({ current }) => {
   const { user } = useContext(userContext);
 
   const getUserPannel = () => {
-    if (Object.keys(user).length !== 0) {
+    if (user && Object.keys(user).length !== 0) {
       return (
         <>
           <Username>{user.username}</Username>

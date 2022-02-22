@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import apiContext from "../../contexts/apiContext";
 import { getLoginUserApiHandler } from "../../utils/apiResultsHandlers";
+import userContext from "../../contexts/userContext";
 
 const Form = styled.form`
   display: flex;
@@ -92,6 +93,7 @@ const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const [showErros, setShowErrors] = useState(false);
   const { robotAPI } = useContext(apiContext);
+  const { fetchUser } = useContext(userContext);
   const navigate = useNavigate();
 
   const submit = (event) => {
@@ -117,7 +119,9 @@ const LoginForm = () => {
   const onResponse = (ok) => {
     setLoading(false);
     if (ok) {
+      window.localStorage.setItem("username", formData.username);
       navigate("/home");
+      fetchUser();
       return;
     }
     setShowErrors(true);

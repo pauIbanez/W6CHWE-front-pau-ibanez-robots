@@ -60,3 +60,10 @@ export const getLoginUserApiHandler = (callback) => (result) => {
   }
   callback(false);
 };
+
+export const getUserDataApiHandler = (callback) => (result) => {
+  if (result.ok) {
+    callback(result.body);
+    return;
+  }
+};
