@@ -326,7 +326,6 @@ const RegisterForm = ({ allGood }) => {
                 <FontAwesomeIcon icon={faXmark} />
               </InvalidMark>
             </InputBocata>
-            <InvalidMark icon={faXmark} />
           </InputThingy>
           <InputThingy>
             <InputName htmlFor="password">Password</InputName>

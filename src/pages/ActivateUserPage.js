@@ -20,14 +20,12 @@ const ActivateUserPage = () => {
 
   const updateFound = (userFound) => {
     setLoading(false);
-    console.log(userFound);
     setFound(userFound);
   };
 
   useEffect(() => {
     if (robotAPI.ready) {
       const activationToken = window.location.pathname.split("/")[3];
-      console.log(activationToken);
       robotAPI.getBody(
         `${robotAPI.endpoints.activate}${activationToken}`,
         getActivateUserApiHandler(updateFound)

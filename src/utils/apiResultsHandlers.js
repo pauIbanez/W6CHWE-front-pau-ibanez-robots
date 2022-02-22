@@ -51,3 +51,19 @@ export const getActivateUserApiHandler = (callback) => (result) => {
   }
   callback(false);
 };
+
+export const getLoginUserApiHandler = (callback) => (result) => {
+  if (result.ok) {
+    window.localStorage.setItem("token", result.body.token);
+    callback(true);
+    return;
+  }
+  callback(false);
+};
+
+export const getUserDataApiHandler = (callback) => (result) => {
+  if (result.ok) {
+    callback(result.body);
+    return;
+  }
+};
