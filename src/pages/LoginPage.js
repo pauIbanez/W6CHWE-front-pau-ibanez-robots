@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header/Header";
+import LoginForm from "../components/LoginForm/LoginForm";
 
 const ContentHolder = styled.div`
   padding: 100px;
@@ -20,6 +21,7 @@ const LoginPage = () => {
         <p>
           Don't have a user? <Link to="/users/register"> Register</Link>
         </p>
+        <LoginForm />
       </ContentHolder>
     </>
   );
