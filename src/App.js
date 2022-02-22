@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import ActivateUserPage from "./pages/ActivateUserPage";
 import AllRobotsPage from "./pages/AllRobotsPage";
 import EditRobotPage from "./pages/EditRobotPage";
+import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
 import NewRobotPage from "./pages/NewRobotPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -22,7 +23,7 @@ function App() {
         <Route path=":id" element={<RobotDetailsPage />} />
       </Route>
       <Route path="/users">
-        <Route path="login" element={"login page"} />
+        <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="activate/:id" element={<ActivateUserPage />} />
       </Route>
