@@ -37,7 +37,7 @@ export const getReplaceRobotApiHandler = (dispatch) => (result) => {
 
 export const getRegisterUserApiHandler =
   (setInvalidField, allGood, email) => (result) => {
-    if (result.ok) {
+    if (result.response.ok) {
       allGood(email);
     } else if (result.body.code === 409) {
       setInvalidField(result.body.message);

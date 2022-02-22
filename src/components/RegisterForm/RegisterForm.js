@@ -1,6 +1,8 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
+import { useCallback } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import apiContext from "../../contexts/apiContext";
@@ -90,10 +92,13 @@ const SubmitButton = styled.button`
   background-color: #f8f9fb;
   border: 1px solid gray;
   border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
-    cursor: pointer;
-    background-color: purple;
+    ${(props) =>
+      props.disabled || "background-color: purple; cursor: pointer;"};
     color: white;
   }
 `;
@@ -134,6 +139,17 @@ const ImageRow = styled.div`
   gap: ${spacing}px;
 `;
 
+const ErrorHolder = styled.div`
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  width: fit-content;
+`;
+
+const ErrorMessage = styled.p`
+  color: red;
+`;
+
 const RegisterForm = ({ allGood }) => {
   const blankForm = {
     name: "",
@@ -147,27 +163,33 @@ const RegisterForm = ({ allGood }) => {
   const baseWrongData = {
     email: false,
     username: false,
-    password: false,
   };
 
   const [formData, setFormData] = useState(blankForm);
   const [wrongData, setWrongData] = useState(baseWrongData);
   const { robotAPI } = useContext(apiContext);
   const [isRepeatPasswordWrong, setIsRepeatPasswordWrong] = useState(false);
+  const [repeatPassword, setRepeatPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const checkPassword = (event) => {
+  const checkPassword = useCallback(() => {
     const password = formData.password;
-    const repeatPassword = event.target.value;
 
     if (password !== repeatPassword) {
       setIsRepeatPasswordWrong(true);
     } else {
       setIsRepeatPasswordWrong(false);
     }
-  };
+  }, [formData.password, repeatPassword]);
+
+  useEffect(() => {
+    checkPassword();
+  }, [checkPassword, formData.password]);
 
   const [localImageUrl, setLocalImageUrl] = useState(formData.avatar);
   const [showingBackground, setShowingBackground] = useState(true);
+  const [showErros, setShowErrors] = useState(false);
+  const [errorMessages, setErrorMessages] = useState([]);
 
   const setImageBackground = (mode) => {
     setShowingBackground(mode);
@@ -175,10 +197,13 @@ const RegisterForm = ({ allGood }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (isRepeatPasswordWrong) {
+    if (isRepeatPasswordWrong || showingBackground) {
+      setErrorMessages(getErrorMessage(wrongData));
+      setShowErrors(true);
       return;
     }
-    robotAPI.postResponse(
+    setLoading(true);
+    robotAPI.post(
       robotAPI.endpoints.register,
       getRegisterUserApiHandler(duplicatedData, allGood, formData.email),
       {
@@ -188,8 +213,8 @@ const RegisterForm = ({ allGood }) => {
   };
 
   const duplicatedData = (wrongDataField) => {
+    setLoading(false);
     const newWrongData = { ...baseWrongData };
-
     const badFields = wrongDataField.split(" ");
 
     badFields.forEach((field) => {
@@ -197,6 +222,8 @@ const RegisterForm = ({ allGood }) => {
     });
 
     setWrongData(newWrongData);
+    setErrorMessages(getErrorMessage(newWrongData));
+    setShowErrors(true);
   };
 
   const updateData = (event) => {
@@ -207,8 +234,26 @@ const RegisterForm = ({ allGood }) => {
     if (event.target.id === "avatar") {
       setLocalImageUrl(event.target.value);
     }
-
     setFormData(newFormData);
+  };
+
+  const getErrorMessage = (badData) => {
+    const errorMessages = [];
+    if (isRepeatPasswordWrong) {
+      errorMessages.push("Please make sure you inputed the correct password");
+    }
+    if (showingBackground) {
+      errorMessages.push("Plase make sure your avatar is a valid image");
+    }
+    Object.entries(badData).forEach((entry) => {
+      if (entry[1] && (entry[0] === "email" || entry[0] === "username")) {
+        errorMessages.push(`A user alreay exists using this  ${entry[0]}`);
+      }
+    });
+
+    return errorMessages.map((message) => (
+      <ErrorMessage key={message}>{message}</ErrorMessage>
+    ));
   };
 
   return (
@@ -295,7 +340,6 @@ const RegisterForm = ({ allGood }) => {
                 autoComplete="off"
                 placeholder="Password..."
                 required
-                wrong={wrongData.password}
               />
               <InvalidMark show={wrongData.password}>
                 <FontAwesomeIcon icon={faXmark} />
@@ -308,7 +352,10 @@ const RegisterForm = ({ allGood }) => {
               type="password"
               name="repeatPassword"
               id="repeatPassword"
-              onChange={checkPassword}
+              onChange={(event) => {
+                setRepeatPassword(event.target.value);
+                checkPassword();
+              }}
               autoComplete="off"
               placeholder="Repeat password..."
               required
@@ -350,8 +397,16 @@ const RegisterForm = ({ allGood }) => {
           <ImagePlaceHolder show={showingBackground} />
         </ImageHolder>
       </ImageRow>
+      <ErrorHolder>{showErros && errorMessages}</ErrorHolder>
+
       <FormFinal>
-        <SubmitButton>Register</SubmitButton>
+        {!loading ? (
+          <SubmitButton>Register</SubmitButton>
+        ) : (
+          <SubmitButton disabled>
+            <div className="loader">Loading...</div>
+          </SubmitButton>
+        )}
       </FormFinal>
     </Form>
   );
