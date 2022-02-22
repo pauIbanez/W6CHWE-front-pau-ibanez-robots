@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import apiContext from "../contexts/apiContext";
 import {
@@ -250,6 +251,7 @@ const RobotDetailsPage = () => {
             </AlertControls>
           </PopUp>
         </AlertContainer>
+        <Footer />
       </>
     );
   } else {

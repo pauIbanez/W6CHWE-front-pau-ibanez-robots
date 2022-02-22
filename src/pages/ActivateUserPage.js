@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import apiContext from "../contexts/apiContext";
 import { getActivateUserApiHandler } from "../utils/apiResultsHandlers";
@@ -52,6 +53,7 @@ const ActivateUserPage = () => {
               link to <Link to="/users/login">Log in</Link>
             </p>
           </ContentHolder>
+          <Footer />
         </>
       ) : (
         getNotFoundContent()
