@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header/Header";
+import LoginRequired from "../components/LogInRequired/LoginRequired";
 import RobotForm from "../components/RobotForm/RobotForm";
 import apiContext from "../contexts/apiContext";
 import {
@@ -21,11 +22,12 @@ const EditRobotPage = () => {
   };
 
   const robotId = window.location.pathname.split("/")[3];
-  const { robotAPI, token } = useContext(apiContext);
+  const { robotAPI } = useContext(apiContext);
   const { robots } = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loading = useRef(true);
+  const token = window.localStorage.getItem("token");
 
   const foundRobot = robots.find((robot) => robot.id === robotId);
 
@@ -57,10 +59,13 @@ const EditRobotPage = () => {
   const submit = (event) => {
     event.preventDefault();
     robotAPI.put(
-      `${robotAPI.endpoints.update}?token=${token}`,
+      robotAPI.endpoints.update,
       getReplaceRobotApiHandler(dispatch),
       {
-        body: formData,
+        body: {
+          robot: formData,
+          token,
+        },
       }
     );
 
@@ -73,14 +78,18 @@ const EditRobotPage = () => {
     return (
       <>
         <Header current={4} texts={headerTexts} />
-        <FormHolder>
-          <RobotForm
-            formData={formData}
-            setFormData={setFormData}
-            onSubmit={submit}
-            editing={true}
-          />
-        </FormHolder>
+        {token ? (
+          <FormHolder>
+            <RobotForm
+              formData={formData}
+              setFormData={setFormData}
+              onSubmit={submit}
+              editing={true}
+            />
+          </FormHolder>
+        ) : (
+          <LoginRequired />
+        )}
       </>
     );
   } else {

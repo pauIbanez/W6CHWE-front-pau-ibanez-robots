@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header/Header";
+import LoginRequired from "../components/LogInRequired/LoginRequired";
 import RobotForm from "../components/RobotForm/RobotForm";
 import apiContext from "../contexts/apiContext";
 import { getCreateRobotApiHandler } from "../utils/apiResultsHandlers";
@@ -23,19 +24,24 @@ const NewRobotPage = () => {
     universe: "",
     tags: [],
   };
-  const { robotAPI, token } = useContext(apiContext);
+  const { robotAPI } = useContext(apiContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState(blankForm);
+  const token = window.localStorage.getItem("token");
 
   const submit = (event) => {
     event.preventDefault();
+
     robotAPI.postBody(
-      `${robotAPI.endpoints.create}?token=${token}`,
+      robotAPI.endpoints.create,
       getCreateRobotApiHandler(dispatch),
       {
-        body: formData,
+        body: {
+          robot: formData,
+          token,
+        },
       }
     );
     navigate("/home");
@@ -44,13 +50,17 @@ const NewRobotPage = () => {
   return (
     <>
       <Header current={3} texts={headerTexts} />
-      <FormHolder>
-        <RobotForm
-          formData={formData}
-          setFormData={setFormData}
-          onSubmit={submit}
-        />
-      </FormHolder>
+      {token ? (
+        <FormHolder>
+          <RobotForm
+            formData={formData}
+            setFormData={setFormData}
+            onSubmit={submit}
+          />
+        </FormHolder>
+      ) : (
+        <LoginRequired />
+      )}
     </>
   );
 };
