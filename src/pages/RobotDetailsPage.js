@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header/Header";
 import apiContext from "../contexts/apiContext";
@@ -78,6 +78,8 @@ const Controls = styled.section`
   border-radius: 10px;
   align-items: center;
   justify-content: space-around;
+
+  color: white;
 `;
 
 const ControllButton = styled.button`
@@ -133,8 +135,18 @@ const AlertControls = styled.section`
   justify-content: space-around;
 `;
 
+const UnauthorizedHolder = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  a {
+    color: #cacaca;
+  }
+`;
+
 const RobotDetailsPage = () => {
-  const { robotAPI, token } = useContext(apiContext);
+  const { robotAPI } = useContext(apiContext);
   const { robots } = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -143,6 +155,7 @@ const RobotDetailsPage = () => {
   const foundRobot = robots.find((robot) => robot.id === robotId);
   const loading = useRef(true);
   const [activePopup, setActivePopup] = useState(false);
+  const token = window.localStorage.getItem("token");
 
   useEffect(() => {
     if (robotAPI.ready && !foundRobot) {
@@ -165,8 +178,13 @@ const RobotDetailsPage = () => {
   const deleteRobot = (event) => {
     event.stopPropagation();
     robotAPI.deleteBody(
-      `${robotAPI.endpoints.delete}/${robotId}?token=${token}`,
-      getDeleteRobotApiHandler(dispatch, robotId)
+      `${robotAPI.endpoints.delete}/${robotId}`,
+      getDeleteRobotApiHandler(dispatch, robotId),
+      {
+        body: {
+          token,
+        },
+      }
     );
     navigate("/home");
   };
@@ -203,11 +221,23 @@ const RobotDetailsPage = () => {
           <TagHolder>{tags}</TagHolder>
         </Details>
         <Controls>
-          <ControllButton onClick={gotoEdit}>Edit Robot</ControllButton>
-          <ControllButton delete={true} onClick={togglePopup}>
-            Delete Robot
-          </ControllButton>
+          {token ? (
+            <>
+              <ControllButton onClick={gotoEdit}>Edit Robot</ControllButton>
+              <ControllButton delete={true} onClick={togglePopup}>
+                Delete Robot
+              </ControllButton>
+            </>
+          ) : (
+            <UnauthorizedHolder>
+              <Link to="/users/login">Log in</Link>
+              <p>or</p>
+              <Link to="/users/register">Register</Link>
+              <p> To acces the edit options</p>
+            </UnauthorizedHolder>
+          )}
         </Controls>
+        :
         <AlertContainer active={activePopup} onClick={togglePopup}>
           <PopUp>
             <Alert>Are you sure you want to delete this robot?</Alert>
