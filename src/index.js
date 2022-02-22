@@ -7,13 +7,16 @@ import { BrowserRouter } from "react-router-dom";
 import ApiContextProvider from "./contexts/ApiContextProvider";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import UserContextProvider from "./contexts/UserContextProvider";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
         <ApiContextProvider>
-          <App />
+          <UserContextProvider>
+            <App />
+          </UserContextProvider>
         </ApiContextProvider>
       </Provider>
     </BrowserRouter>

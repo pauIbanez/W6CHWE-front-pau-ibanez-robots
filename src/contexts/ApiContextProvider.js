@@ -10,14 +10,13 @@ const endpoints = {
   create: "robots/create",
   delete: "robots/delete",
   update: "robots/update",
-  token: "token",
+  register: "users/register",
 };
 
 const ApiContextProvider = ({ children }) => {
   const apiManager = useAPI();
 
   const [robotAPI, setRobotAPI] = useState({});
-  const [token, setToken] = useState("");
 
   useEffect(() => {
     const createdRobotAPI = apiManager.createAPI(
@@ -26,19 +25,12 @@ const ApiContextProvider = ({ children }) => {
       endpoints
     );
 
-    createdRobotAPI.getBody(createdRobotAPI.endpoints.token, (result) => {
-      if (result.ok) {
-        setToken(result.body.token);
-      }
-    });
-
     setRobotAPI(createdRobotAPI);
   }, [apiManager]);
 
   const contextValue = {
     robotAPI,
     endpoints: endpoints.current,
-    token,
   };
   return (
     <apiContext.Provider value={contextValue}>{children}</apiContext.Provider>

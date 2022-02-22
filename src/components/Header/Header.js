@@ -13,7 +13,7 @@ const Video = styled.video`
 const HeaderInfo = styled.div`
   ${(props) =>
     props.video
-      ? "position: aboslute; margin-top: 600px;"
+      ? "position: aboslute; margin-top: 700px;"
       : "margin-top: 50px;"}
   background-color: #252525;
   height: 400px;
@@ -22,6 +22,10 @@ const HeaderInfo = styled.div`
   justify-content: center;
   flex-direction: column;
   padding: 100px;
+  color: white;
+`;
+
+const Title = styled.h1`
   color: white;
 `;
 
@@ -35,7 +39,7 @@ const Header = ({ current, texts = null, video = false }) => {
         </Video>
       )}
       <HeaderInfo video={video}>
-        <h1>{texts ? texts.title : "Robots!"}</h1>
+        <Title>{texts ? texts.title : "Robots!"}</Title>
         <p>
           {texts
             ? texts.description
