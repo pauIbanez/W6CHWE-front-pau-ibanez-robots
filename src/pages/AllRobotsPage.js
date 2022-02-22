@@ -1,6 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import ListRobot from "../components/Robot/ListRobot";
 import RobotFilter from "../components/RobotFilter/RobotFilter";
@@ -45,11 +46,6 @@ const SectionList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 20px;
-`;
-
-const Footer = styled.footer`
-  height: 300px;
-  background-color: #252525;
 `;
 
 const AllRobotsPage = () => {
@@ -146,9 +142,7 @@ const AllRobotsPage = () => {
           <SectionList>{robotsToRender}</SectionList>
         </AllRobots>
       </MainSection>
-      <Footer>
-        <h2>Footer here</h2>
-      </Footer>
+      <Footer />
     </>
   );
 };

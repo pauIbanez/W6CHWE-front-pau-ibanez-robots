@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import RegisterForm from "../components/RegisterForm/RegisterForm";
 
@@ -35,6 +36,7 @@ const RegisterPage = () => {
           <p>Please check your inbox and stary enjoying We Robot at the max!</p>
         </ContentHolder>
       )}
+      <Footer />
     </>
   );
 };

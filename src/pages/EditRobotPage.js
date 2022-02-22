@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import LoginRequired from "../components/LogInRequired/LoginRequired";
 import RobotForm from "../components/RobotForm/RobotForm";
@@ -90,6 +91,7 @@ const EditRobotPage = () => {
         ) : (
           <LoginRequired />
         )}
+        <Footer />
       </>
     );
   } else {
