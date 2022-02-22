@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import ActivateUserPage from "./pages/ActivateUserPage";
 import AllRobotsPage from "./pages/AllRobotsPage";
 import EditRobotPage from "./pages/EditRobotPage";
 import MainPage from "./pages/MainPage";
@@ -23,7 +24,7 @@ function App() {
       <Route path="/users">
         <Route path="login" element={"login page"} />
         <Route path="register" element={<RegisterPage />} />
-        <Route path="activate/:id" element={"activate page"} />
+        <Route path="activate/:id" element={<ActivateUserPage />} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />

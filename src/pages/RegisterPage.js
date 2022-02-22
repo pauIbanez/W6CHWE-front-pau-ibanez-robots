@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Header from "../components/Header/Header";
 import RegisterForm from "../components/RegisterForm/RegisterForm";
 
-const FormHolder = styled.div`
+const ContentHolder = styled.div`
   padding: 100px;
 `;
 const RegisterPage = () => {
@@ -23,18 +23,17 @@ const RegisterPage = () => {
     <>
       <Header current={4} texts={headerTexts} />
       {!compleated ? (
-        <FormHolder>
+        <ContentHolder>
           <RegisterForm allGood={allGood} />
-        </FormHolder>
+        </ContentHolder>
       ) : (
-        <FormHolder>
-          <h1>Nice!</h1>
+        <ContentHolder>
+          <h1>Verification email sent!</h1>
           <p>Your user has been submitted! Now just one last step:</p>
-          <p>
-            You need to verify your email, to do so please check your inbox at
-            <a href={`mailto:${email}`}>{email}</a>
-          </p>
-        </FormHolder>
+          <p>A verification email has been sent to:</p>
+          <a href={`mailto:${email}`}>{email}</a>
+          <p>Please check your inbox and stary enjoying We Robot at the max!</p>
+        </ContentHolder>
       )}
     </>
   );
