@@ -155,7 +155,7 @@ const SubmitButton = styled.button`
 
   &:hover {
     cursor: pointer;
-    background-color: #696969;
+    background-color: purple;
     color: white;
   }
 `;

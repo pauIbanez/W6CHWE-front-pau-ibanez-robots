@@ -89,7 +89,8 @@ const Username = styled.p`
 
 const Avatar = styled.img`
   border-radius: 50%;
-  border: 2px solid purple;
+  border: 3px solid purple;
+  object-fit: fill;
 `;
 
 const Navigation = ({ current }) => {

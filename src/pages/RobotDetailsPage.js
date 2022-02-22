@@ -90,7 +90,7 @@ const ControllButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => (props.delete ? "red" : "gray")};
+    background-color: ${(props) => (props.delete ? "red" : "purple")};
   }
 `;
 
