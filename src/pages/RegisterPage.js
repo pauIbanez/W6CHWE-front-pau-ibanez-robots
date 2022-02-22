@@ -27,10 +27,14 @@ const RegisterPage = () => {
           <RegisterForm allGood={allGood} />
         </FormHolder>
       ) : (
-        <h1>
-          Nice, your information has been submitted. To use this user you need
-          to verify your email, please check your inbox at {email}
-        </h1>
+        <FormHolder>
+          <h1>Nice!</h1>
+          <p>Your user has been submitted! Now just one last step:</p>
+          <p>
+            You need to verify your email, to do so please check your inbox at
+            <a href={`mailto:${email}`}>{email}</a>
+          </p>
+        </FormHolder>
       )}
     </>
   );
